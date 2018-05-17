@@ -1,0 +1,110 @@
+.gearControl {                  /* style the CSS class that has been written by the renderer method */
+        position: relative; /*display: inline-block;*/   /* enable squares to appear next to each other within one line */
+        /*border: 1px dotted red;*/   /* add some border, so the square can actually be seen */
+        /*background-color: #ddd;*/
+        /*margin: 1rem;*/
+        /*text-align: center;*/
+        /*-moz-box-sizing: border-box;*/ /* consider padding+border part of the width/height */
+        /*box-sizing: border-box;*/
+    }
+    
+.gearGraphics {
+        position: relative; /*display: inline-block;*/   /* enable squares to appear next to each other within one line */
+        /*background-color: #ddd;*/
+        /*margin: 0px;
+        padding: 0px;*/
+}
+
+.selectedGraphics {
+		border: 1px dotted red;
+}
+.unSelectedGraphics {
+		border: none;
+}
+
+.canvasArea {
+		position: absolute;
+        /*background-color: #ddd;*/
+        /*margin: 0px;
+        padding: 1rem;*/
+	
+}
+.scaleTick {
+	position: absolute;
+	height: 15px;
+	width: 3px;
+	border: none;
+	background-color: #AAAAAA;
+
+}
+
+.teethNumber {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, (Chrome and Opera) */
+	
+}
+
+.testTick {
+	position: absolute;
+	height: 15px;
+	width: 1px;
+	border: none;
+	background-color: #FF0000;
+
+}
+.chainring {
+	position:absolute;
+    text-align: center;
+    line-height: 50px;
+	/*border-radius: 100%;*/
+	/*width: auto;*/
+	/*border: 1px dotted red;*/
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 2;
+	margin: 0px;
+	background-color: transparent;
+	text-shadow: 3px 3px 4px #444;
+	vertical-align: text-bottom;
+	background-image: url('../images/Chainring.png');
+	background-size: 50px 50px;
+	/*-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 5px 5px 5px #888;*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, (Chrome and Opera) */
+}
+
+.cog {
+	position:absolute;
+    text-align: center;
+    line-height: 50px;
+	/*border-radius: 100%;*/
+	/*width: auto;*/
+	width: 50px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 2;
+	border: none;
+	margin: 0px;
+	background-color: transparent;
+	text-shadow: 3px 3px 4px #444;
+	background-image: url('../images/Sprocket.png');
+	background-size: 50px 50px;
+	/*-moz-box-shadow: 10px 10px 5px #888;
+	-webkit-box-shadow: 10px 10px 5px #888;
+	box-shadow: 5px 5px 5px #888;*/
+	-webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, (Chrome and Opera) */
+}

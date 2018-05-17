@@ -1,0 +1,34 @@
+{
+    "application": {
+        "id": "",
+        "title": "dirk.gears.Gears",
+        "type": "SAP_UI5_Component",
+        "componentUrl": "/webapp",
+        "appUrl": "#Gears-Display",
+        "navigationComponentName": "dirk.gears",
+        "intentSemanticObject": "Gears",
+        "intentAction": "Display",
+        "html5ApplicationName": "gears",
+        "HCPParentApplicationName": ""
+    },
+    "assignment": {
+        "groups": [
+            "617e2dc2-604f-47d9-8705-8063971652e3"
+        ],
+        "contentPackages": [
+            "10f727e8-680c-4e14-b40e-34630327b9ef"
+        ],
+        "categories": []
+    },
+    "tile": {
+        "type": "StaticTile",
+        "title": "Title",
+        "subtitle": "Subtitle",
+        "searchKeywords": "Title,Subtitle",
+        "displayIconUrl": "sap-icon://approvals",
+        "displayInfoText": "",
+        "size": "1x1",
+        "serviceURL": "",
+        "refreshInterval": ""
+    }
+}
