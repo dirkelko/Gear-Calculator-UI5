@@ -5,7 +5,7 @@ sap.ui.define([
 	return Control.extend("dirk.gears.control.GearGraphics", {
 		metadata : {
 			properties : {
-				value:   {type : "float", defaultValue : 0},
+				testValue:   {type : "float", defaultValue : 0},
             	width : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
             	height : {type: "sap.ui.core.CSSSize", defaultValue: "200px"},
 				cadence: {type : "int", defaultValue : 0},
@@ -48,8 +48,9 @@ sap.ui.define([
 			this.fireSelect();
 		}, 
 
-		setValue: function (fValue) {
-			this.setProperty("value", fValue, true);
+		setTestValue: function (fValue) {
+			this.setProperty("testValue", fValue, true);
+			this.invalidate();	
 		},
 		
 		setCadence: function (fValue) {

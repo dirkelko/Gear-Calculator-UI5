@@ -6,6 +6,7 @@ sap.ui.define([
 	"use strict";
 	
 	var oModel;
+	var oSelectedGraphics;
 
 	return Controller.extend("dirk.gears.controller.App", {
 		onInit : function () {
@@ -123,6 +124,7 @@ sap.ui.define([
 	         this.context = oModel.createBindingContext("/gearData");
 	         this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
 		     this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference);
+	         oSelectedGraphics = this.getView().byId("gearGraphics");
 	         
 	         // register custom controls for automatic repainting after resizing
 	         var fRepaint = function(oEvent){
@@ -174,14 +176,20 @@ sap.ui.define([
 		
 		onChangeCircumference: function(oEvent) {
 			var circumference = oEvent.getParameter("value");
-			var cCode = circumference.charCodeAt(0);
-/*			if (circumference.length === 4){
+			var cCode = circumference.charCodeAt( circumference.length-1 );
+			if (cCode > 57 || cCode < 48){
+				circumference = circumference.slice(0,circumference.length-1);
+				this.getView().byId("inpCircumference").setValue(circumference);
+			}
+			if (circumference.length === 4){
 				oModel.getObject("", this.context).circumference = parseInt(circumference);
-				oModel.getObject("", this.context).tireSize = circumference;
+				oModel.getObject("", this.context).tireSize = parseInt(circumference);
 				oModel.getObject("", this.context).tireName = circumference;
 	        	this.getView().byId("showURL").setValue(oModel.getURL());
+				oSelectedGraphics.setCircumference(parseInt(circumference));
+				this.getView().byId("selectTires").setSelectedKey(null);
 			}
-*/		},
+		},
 		
 		onMaxChainAngleSelected: function(oEvent) {
 			oModel.getObject("/displayData").maxChainAngle = oEvent.getParameter("value");
@@ -203,10 +211,12 @@ sap.ui.define([
 				var sControlId = oEvent.getSource().getId();
 				//oEvent.getSource().addStyleClass("selectedGraphics");
 				if ( sControlId.search("gearGraphics2") > 0){
+					oSelectedGraphics = this.getView().byId("gearGraphics2");
 	        		this.context = this.getView().getModel().createBindingContext("/gearData2");
 	        		this.getView().byId("gearGraphics").removeStyleClass("selectedGraphics");
 	        		this.getView().byId("gearGraphics2").addStyleClass("selectedGraphics");
 				}else{
+					oSelectedGraphics = this.getView().byId("gearGraphics");
 	        		this.context = this.getView().getModel().createBindingContext("/gearData");
 	        		this.getView().byId("gearGraphics").addStyleClass("selectedGraphics");
 	        		this.getView().byId("gearGraphics2").removeStyleClass("selectedGraphics");

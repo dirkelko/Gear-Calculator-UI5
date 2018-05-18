@@ -88,7 +88,7 @@
 						change="onCogChange"/>
 						
 						<HBox class="sapUiSmallMarginTop">
-							<VBox width="33%" class="sapUiSmallMarginEnd">
+							<VBox width="25%" class="sapUiSmallMarginEnd">
 								<Label text="{i18n>gearing}" labelFor="selectGears" class="sapUiTinyMarginTop"/>
 								<Select
 									id="selectGears"
@@ -100,6 +100,21 @@
 									change=".onGearSelected">
 									<core:Item key="{gears>id}" text="{gears>name}" />
 								</Select>
+								<Label text="{i18n>cadence} {/gearData/cadence}" labelFor="selectCadence" class="sapUiTinyMarginTop"/>
+								<Slider 
+									id="selectCadence"
+									min="60" 
+									max="120" 
+									step="5"
+									width="100%"
+									enableTickmarks="true" 
+									value="{/gearData/cadence}"
+									change=".onCadenceSelected">
+									<ResponsiveScale tickmarksBetweenLabels="2"/>
+								</Slider>
+							
+							</VBox>
+							<VBox width="25%" >
 								<Label text="{i18n>chainrings}" labelFor="selectChainringSet" class="sapUiTinyMarginTop"/>
 								<Select
 									id="selectChainringSet"
@@ -111,6 +126,20 @@
 									change=".onChainringSetSelected">
 									<core:Item key="{gears>name}" text="{gears>name}" />
 								</Select>
+								<Label text="{i18n>maxChainAngle}" labelFor="selectMaxChainAngle" class="sapUiTinyMarginTop"/>
+								<Slider 
+									id="selectMaxChainAngle"
+									min="1.5" 
+									max="3.5" 
+									step="0.1"
+									enableTickmarks="true" 
+									value="{/displayData/maxChainAngle}"
+									change=".onMaxChainAngleSelected">
+									<ResponsiveScale tickmarksBetweenLabels="2"/>
+								</Slider>
+								
+							</VBox>
+							<VBox width="25%" class="sapUiSmallMarginBegin">
 								<Label text="{i18n>cogs}" labelFor="selectCogSet" class="sapUiTinyMarginTop"/>
 								<Select
 									id="selectCogSet"
@@ -122,15 +151,25 @@
 									change=".onCogSetSelected">
 									<core:Item key="{gears>name}" text="{gears>name} {gears>description}" />
 								</Select>
-							
+									<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
+									<Select
+										id="selectDisplayValue"
+										width="100%"
+										selectedKey="{/displayData/displayValueId}"
+										items="{
+											path: '/displayData/displayValues'
+										}" 
+										change=".ondisplayValueSelected">
+										<core:Item key="{id}" text="{name}" />
+									</Select>
 							</VBox>
-							<VBox width="34%" >
+							<VBox width="25%" class="sapUiSmallMarginBegin">
 								<Label text="{i18n>tire_size}" labelFor="selectTires" class="sapUiTinyMarginTop"/>
 								<HBox>
 									<ComboBox
 										id="selectTires"
-										selectedKey="{tireSize}"
-										width="auto"
+										selectedKey="{/gearData/tireSize}"
+										width="100%"
 										items="{
 											path: 'gears>/TireSizes'
 										}"
@@ -142,9 +181,9 @@
 									<Input
 										id="inpCircumference"
 										type="Text"
-										width="auto"
+										width="100%"
 										maxLength="4"
-										value="{circumference}"
+										value="{/gearData/circumference}"
 										liveChange="onChangeCircumference">
 									</Input>
 									<!--Input
@@ -157,18 +196,8 @@
 										liveChange="onChangeCircumference">
 									</Input-->
 								</HBox>
-									<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
-									<Select
-										id="selectDisplayValue"
-										width="100%"
-										selectedKey="{/displayData/displayValueId}"
-										items="{
-											path: '/displayData/displayValues'
-										}" 
-										change=".ondisplayValueSelected">
-										<core:Item key="{id}" text="{name}" />
-									</Select>
 									<Label text="{i18n>units}" labelFor="selectUnits" class="sapUiTinyMarginTop"/>
+								<HBox width="100%">
 									<RadioButtonGroup 
 										id="selectUnits"
 										width="100%"
@@ -177,34 +206,17 @@
 										<RadioButton text="{i18n>metric}" />
 										<RadioButton text="{i18n>imperial}" />
 									</RadioButtonGroup>
+									<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
+									<ToggleButton 
+										id="btnCompare" 
+										text="{i18n>compare}" 
+										enabled="true" 
+										pressed="{/displayData/compare}" 
+										press="onPress" 
+										class="sapUiSmallMarginBegin"
+										width="100%" />
+								</HBox>
 								
-							</VBox>
-							<VBox width="33%" class="sapUiSmallMarginBegin">
-										<Label text="{i18n>cadence} {/gearData/cadence}" labelFor="selectCadence" class="sapUiTinyMarginTop"/>
-										<Slider 
-											id="selectCadence"
-											min="60" 
-											max="120" 
-											step="5"
-											width="100%"
-											enableTickmarks="true" 
-											value="{/gearData/cadence}"
-											change=".onCadenceSelected">
-											<ResponsiveScale tickmarksBetweenLabels="2"/>
-										</Slider>
-										<Label text="{i18n>maxChainAngle}" labelFor="selectMaxChainAngle" class="sapUiTinyMarginTop"/>
-										<Slider 
-											id="selectMaxChainAngle"
-											min="1.5" 
-											max="3.5" 
-											step="0.1"
-											enableTickmarks="true" 
-											value="{/displayData/maxChainAngle}"
-											change=".onMaxChainAngleSelected">
-											<ResponsiveScale tickmarksBetweenLabels="2"/>
-										</Slider>
-										<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
-										<ToggleButton id="btnCompare" text="{i18n>compare}" enabled="true" pressed="{/displayData/compare}" press="onPress" width="100%"/>
 							</VBox>
 						</HBox>
 						<VBox >
