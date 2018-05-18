@@ -163,12 +163,11 @@
 										<core:Item key="{id}" text="{name}" />
 									</Select>
 							</VBox>
-							<VBox width="25%" class="sapUiSmallMarginBegin">
+							<VBox width="15%" class="sapUiSmallMarginBegin">
 								<Label text="{i18n>tire_size}" labelFor="selectTires" class="sapUiTinyMarginTop"/>
-								<HBox>
 									<ComboBox
 										id="selectTires"
-										selectedKey="{/gearData/tireSize}"
+										selectedKey="{tireSize}"
 										width="100%"
 										items="{
 											path: 'gears>/TireSizes'
@@ -178,26 +177,7 @@
 										>
 										<core:ListItem key="{gears>size}" text="{gears>inch} / {gears>ETRTO}" additionalText="{gears>description}"/>
 									</ComboBox>
-									<Input
-										id="inpCircumference"
-										type="Text"
-										width="100%"
-										maxLength="4"
-										value="{/gearData/circumference}"
-										liveChange="onChangeCircumference">
-									</Input>
-									<!--Input
-										id="inpCircumference"
-										type="Text"
-										width="auto"
-										maxLength="4"
-										value="{/gearData/circumference}"
-										valueLiveUpdate="{/gearData/circumference}"
-										liveChange="onChangeCircumference">
-									</Input-->
-								</HBox>
 									<Label text="{i18n>units}" labelFor="selectUnits" class="sapUiTinyMarginTop"/>
-								<HBox width="100%">
 									<RadioButtonGroup 
 										id="selectUnits"
 										width="100%"
@@ -206,6 +186,18 @@
 										<RadioButton text="{i18n>metric}" />
 										<RadioButton text="{i18n>imperial}" />
 									</RadioButtonGroup>
+
+							</VBox>
+							<VBox width="10%">
+									<Label text="Circumference/mm" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>
+									<Input
+										id="inpCircumference"
+										type="Text"
+										width="100%"
+										maxLength="4"
+										value="{circumference}"
+										liveChange="onChangeCircumference">
+									</Input>
 									<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
 									<ToggleButton 
 										id="btnCompare" 
@@ -213,10 +205,9 @@
 										enabled="true" 
 										pressed="{/displayData/compare}" 
 										press="onPress" 
-										class="sapUiSmallMarginBegin"
-										width="100%" />
-								</HBox>
-								
+										width="100%"
+										class="sapUiTinyMarginTop"/>
+
 							</VBox>
 						</HBox>
 						<VBox >

@@ -29,7 +29,7 @@
 	"sap.ui5": {
 		"_version": "1.2.0",
 		"rootView": {
-			"viewName": "dirk.gears.view.App2",
+			"viewName": "dirk.gears.view.App3",
 			"type": "XML",
 			"id": "app"
 		},
