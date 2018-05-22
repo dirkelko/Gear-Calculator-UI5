@@ -190,7 +190,7 @@
 
 							</VBox>
 							<VBox width="10%">
-									<Label text="{i18n>circumference}" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>
+									<Label text="{i18n>circumference}/mm" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>
 									<Input
 										id="inpCircumference"
 										type="Text"
