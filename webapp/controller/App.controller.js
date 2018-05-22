@@ -15,7 +15,7 @@ sap.ui.define([
 			oGearsModel.attachRequestCompleted( function(evt) {
 				this.onAllDataIsReady();
     		}.bind(this));
-
+    		
     	},
       
       // this function is called when the "gears" models has been loaded
@@ -34,9 +34,34 @@ sap.ui.define([
 	      	var sCadence		= jQuery.sap.getUriParameters().get("TF");
 	      	var sChainAngle 	= jQuery.sap.getUriParameters().get("SL");
 	      	var sUnits			= jQuery.sap.getUriParameters().get("UN");
+	      	var sDisplayValueId	= jQuery.sap.getUriParameters().get("DV");
 	      	
+    		this.getView().byId("selectCogSet").setCogs = function(aCogs, that) {
+    			var a = 1;
+				var aCogSets = that.getView().getModel("gears").getProperty("/CogSets");
+				that.getView().byId("selectCogSet").setSelectedKey(aCogSets[0].name);
+				for (var i in aCogSets){
+					if (JSON.stringify(aCogs.sort()) === JSON.stringify(aCogSets[i].set.sort())){
+						that.getView().byId("selectCogSet").setSelectedKey(aCogSets[i].name);
+					}
+				}
+    		};
+    		
+    		this.getView().byId("selectChainringSet").setChainrings = function(aChainrings, that) {
+				var aChainringSets = that.getView().getModel("gears").getProperty("/ChainringSets");
+				that.getView().byId("selectChainringSet").setSelectedKey(aChainringSets[0].name);
+				for (var i in aChainringSets){
+					if (JSON.stringify(aChainrings.sort()) === JSON.stringify(aChainringSets[i].set.sort())){
+						that.getView().byId("selectChainringSet").setSelectedKey(aChainringSets[i].name);
+					}
+				}
+    		};
+
+
+
         	// get Ratios of Hubs and tire names from Gears.jason as choosen in URL
         	var aHubData = this.getView().getModel("gears").getProperty("/HubData");
+        	this.getView().getModel("gears").getProperty("/HubData")[0].name = "XXX";
 			for (var i in aHubData ){
 		      	if (aHubData[i].id == sGears){
 		      		var aRatios = aHubData[i].ratios;
@@ -57,7 +82,12 @@ sap.ui.define([
 		      	}
 			}
 			
+			// get Internationalization data
+			var bi18n = this.getView().getModel("i18n").getResourceBundle();
 			
+			// set text of first selectable item in selectGears language dependent
+			this.getView().byId("selectGears").getItemAt(0).setText(bi18n.getText("derailleurs"));
+
 	         var oGearingData = {
 	            gearData : {
 	            	chainrings : (sChainrings !== null)? sChainrings.split(",").map(Number) : [22,36],
@@ -77,21 +107,21 @@ sap.ui.define([
 	            	name : (sGears2 !== null) ? sHubName2 : "",
 	            	minRatio : 0.0,
 	            	ratios: (sGears2 !== null) ? aRatios2 : [1.0],
-	            	tireName: sTireName2,
+	            	tireName: (sTireName2)? sTireName2 : "27,5/2215",
 	            	circumference : (sCircumference2 !== null)? Number(sCircumference2) : 2215,
 	            	cadence : (sCadence !== null)? Number(sCadence) : 90
 	            },
 	            displayData :{
 	            	maxChainAngle : 2.5,
-	            	displayValueId : "teeth",
+	            	displayValueId : (sDisplayValueId !== null)? sDisplayValueId : "ratio",
 	            	displayValues : [
-	            		{id : "teeth", name : "Teeth"},
-	            		{id : "development", name : "Development"},
-	            		{id : "gearInches", name : "Gear Inches"},
-	            		{id : "ratio", name : "Ratio"},
-	            		{id : "speed", name : "Speed"}
+	            		{id : "teeth", name : bi18n.getText("teeth")},
+	            		{id : "development", name : bi18n.getText("development")},
+	            		{id : "gearInches", name : bi18n.getText("gearInches")},
+	            		{id : "ratio", name : bi18n.getText("ratio")},
+	            		{id : "speed", name : bi18n.getText("speed")}
 	            	],
-	            	unitsIndex : 0,
+	            	unitsIndex : (sUnits !== null)? parseInt(sUnits) : 0,
 	            	compare : (sGears2 !== null)
 	            }
 	         };
@@ -103,7 +133,9 @@ sap.ui.define([
 	        	+ "&RZ=" + oModel.oData.gearData.cogs
 	        	+ "&UF=" + oModel.oData.gearData.circumference
 	        	+ "&TF=" + oModel.oData.gearData.cadence
-	        	+ "&SL=" + oModel.oData.displayData.maxChainAngle;
+	        	+ "&SL=" + oModel.oData.displayData.maxChainAngle
+	        	+ "&UN=" + oModel.oData.displayData.unitsIndex
+	        	+ "&DV=" + oModel.oData.displayData.displayValueId;
 	        	if (oModel.oData.displayData.compare){
 	        		url = url 
 	        		+ "&GR2=" + oModel.oData.gearData2.hubId
@@ -135,8 +167,11 @@ sap.ui.define([
 			 sap.ui.core.ResizeHandler.register( this.getView().byId("gearGraphics2"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("chainringControls"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("cogControls"), fRepaint );
-        
-    	     this.getView().byId("showURL").setValue(oModel.getURL());
+             
+			this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
+			this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
+
+    	    this.getView().byId("showURL").setValue(oModel.getURL());
 
     	},
     	
@@ -197,10 +232,20 @@ sap.ui.define([
 		},
 		
 		onChainringChange: function(oEvent) {
+			this.getView().byId("selectChainringSet").setChainrings( oEvent.getSource().getSprockets(), this);
 	        this.getView().byId("showURL").setValue(oModel.getURL());
 		},
 		
 		onCogChange: function(oEvent) {
+			this.getView().byId("selectCogSet").setCogs(oEvent.getSource().getSprockets(), this);
+	        this.getView().byId("showURL").setValue(oModel.getURL());
+		},
+		
+		ondisplayValueSelected: function(oEvent) {
+	        this.getView().byId("showURL").setValue(oModel.getURL());
+		},
+
+		onSelectUnits: function(oEvent) {
 	        this.getView().byId("showURL").setValue(oModel.getURL());
 		},
 		
@@ -241,6 +286,8 @@ sap.ui.define([
 				oModel.oData.gearData2.tireName = oModel.oData.gearData.tireName;
 				this.getView().byId("gearGraphics2").addStyleClass("selectedGraphics");
 				this.context = this.getView().getModel().createBindingContext("/gearData2");
+				this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData2.chainrings, this);
+				this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData2.cogs, this);
 			}
 			else {
 				this.getView().byId("gearGraphics").removeStyleClass("selectedGraphics");
