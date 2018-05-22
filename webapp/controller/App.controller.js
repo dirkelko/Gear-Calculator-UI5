@@ -266,7 +266,7 @@ sap.ui.define([
 	    	    this.getView().byId("showURL").setValue(oModel.getURL());
 			}
 		},
-		
+		 
 
 		// compare button is pressed.
 		// Either second graphics appears gets focus and controls are set to second data set (gearData2)
