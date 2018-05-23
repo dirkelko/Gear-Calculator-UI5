@@ -13,8 +13,8 @@
 				showFooter="{device>/system/desktop}"
 				showHeader="{device>/system/desktop}">
 				<headerContent>
-					<Button icon="sap-icon://question-mark" tooltip="Menu" />
-					<Button icon="sap-icon://action-settings" tooltip="Config" />
+					<Button icon="sap-icon://question-mark" tooltip="Menu" visible="false" />
+					<Button icon="sap-icon://action-settings" tooltip="Config" visible="false"/>
 				</headerContent>
 				<content>
 				<VBox width="auto" class="sapUiResponsiveMargin">

@@ -121,7 +121,7 @@ sap.ui.define([
 	            		{id : "ratio", name : bi18n.getText("ratio")},
 	            		{id : "speed", name : bi18n.getText("speed")}
 	            	],
-	            	unitsIndex : (sUnits !== null)? parseInt(sUnits) : 0,
+	            	unitsIndex : (sUnits == "MPH")? 1 : 0,	           //parseInt(sUnits) : 0,
 	            	compare : (sGears2 !== null)
 	            }
 	         };
@@ -134,7 +134,7 @@ sap.ui.define([
 	        	+ "&UF=" + oModel.oData.gearData.circumference
 	        	+ "&TF=" + oModel.oData.gearData.cadence
 	        	+ "&SL=" + oModel.oData.displayData.maxChainAngle
-	        	+ "&UN=" + oModel.oData.displayData.unitsIndex
+	        	+ "&UN=" + ((oModel.oData.displayData.unitsIndex == 1)? "MPH" : "KMH")
 	        	+ "&DV=" + oModel.oData.displayData.displayValueId;
 	        	if (oModel.oData.displayData.compare){
 	        		url = url 
