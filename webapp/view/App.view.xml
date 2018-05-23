@@ -110,7 +110,7 @@
 									enableTickmarks="true" 
 									value="{/gearData/cadence}"
 									change=".onCadenceSelected">
-									<ResponsiveScale tickmarksBetweenLabels="2"/>
+									<ResponsiveScale tickmarksBetweenLabels="1"/>
 								</Slider>
 							
 							</VBox>
@@ -181,13 +181,12 @@
 									<RadioButtonGroup 
 										id="selectUnits"
 										width="100%"
-										columns="2" 
+										columns="3" 
 										selectedIndex="{/displayData/unitsIndex}"
 										select="onSelectUnits">
 										<RadioButton text="{i18n>metric}" />
 										<RadioButton text="{i18n>imperial}" />
 									</RadioButtonGroup>
-
 							</VBox>
 							<VBox width="10%">
 									<Label text="{i18n>circumference}/mm" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>

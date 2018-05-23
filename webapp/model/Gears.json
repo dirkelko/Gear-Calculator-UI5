@@ -181,6 +181,8 @@
 	{ "size" : 1600, "ETRTO" : "50-406", "inch" : "20", "description" : "Birdy" },
 	{ "size" : 1620, "ETRTO" : "54-406", "inch" : "20", "description" : ""},
 	{ "size" : 1650, "ETRTO" : "60-406", "inch" : "20", "description" : ""},
+	{ "size" : 1545, "ETRTO" : "28-451", "inch" : "20", "description" : ""},
+	{ "size" : 1615, "ETRTO" : "37-451", "inch" : "20", "description" : ""},
 	{ "size" : 1900, "ETRTO" : "47-507", "inch" : "24", "description" : ""},
 	{ "size" : 1910, "ETRTO" : "50-507", "inch" : "24", "description" : ""},
 	{ "size" : 1930, "ETRTO" : "54-507", "inch" : "24", "description" : ""},

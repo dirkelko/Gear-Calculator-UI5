@@ -107,12 +107,12 @@ sap.ui.define([
 	            	name : (sGears2 !== null) ? sHubName2 : "",
 	            	minRatio : 0.0,
 	            	ratios: (sGears2 !== null) ? aRatios2 : [1.0],
-	            	tireName: (sTireName2)? sTireName2 : "27,5/2215xxx",
+	            	tireName: (sTireName2)? sTireName2 : "27,5/2215",
 	            	circumference : (sCircumference2 !== null)? Number(sCircumference2) : 2215,
 	            	cadence : (sCadence !== null)? Number(sCadence) : 90
 	            },
 	            displayData :{
-	            	maxChainAngle : 2.5,
+	            	maxChainAngle : 2.6,
 	            	displayValueId : (sDisplayValueId !== null)? sDisplayValueId : "teeth",
 	            	displayValues : [
 	            		{id : "teeth", name : bi18n.getText("teeth")},
@@ -256,13 +256,20 @@ sap.ui.define([
 	        		this.context = this.getView().getModel().createBindingContext("/gearData2");
 	        		this.getView().byId("gearGraphics").removeStyleClass("selectedGraphics");
 	        		this.getView().byId("gearGraphics2").addStyleClass("selectedGraphics");
+		        	this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
+					this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData2.chainrings, this);
+					this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData2.cogs, this);
+					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData2.circumference, this);
 				}else{
 					oSelectedGraphics = this.getView().byId("gearGraphics");
 	        		this.context = this.getView().getModel().createBindingContext("/gearData");
 	        		this.getView().byId("gearGraphics").addStyleClass("selectedGraphics");
 	        		this.getView().byId("gearGraphics2").removeStyleClass("selectedGraphics");
+		        	this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
+					this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
+					this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
+					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference, this);
 				}
-		        this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
 	    	    this.getView().byId("showURL").setValue(oModel.getURL());
 			}
 		},
