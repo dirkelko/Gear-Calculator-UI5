@@ -12,12 +12,24 @@
 				class="sapUiContentPadding"
 				showFooter="{device>/system/desktop}"
 				showHeader="{device>/system/desktop}">
+				
 				<headerContent>
-					<Button icon="sap-icon://question-mark" tooltip="Menu" visible="false" />
+					<Button icon="sap-icon://question-mark" tooltip="Menu" visible="true" press="onDisplayHelp" />
 					<Button icon="sap-icon://action-settings" tooltip="Config" visible="false"/>
 				</headerContent>
 				<content>
 				<VBox width="auto" class="sapUiResponsiveMargin">
+					<wt:Banner
+						id="banner"
+						text="{i18n>bannerText}"
+						subText="{i18n>bannerSubText}"
+						link="{i18n>bannerLink}"
+						width="400px"
+						height="50px"
+						top="50px"
+						left="-120px"
+						visible="true"
+						select="onCloseBanner"/>
 					<wt:GearGraphics
 						id="gearGraphics"
 						width="100%"
@@ -212,8 +224,9 @@
 						</HBox>
 						<VBox >
 						
-						<Label text="URL" labelFor="showURL" class="sapUiTinyMarginTop"/>
-						<Input id="showURL" value="http://www.ritzelrechner.de" editable="false"/>
+						<!--Label text="URL" labelFor="showURL" class="sapUiTinyMarginTop"/-->
+						<!--Input id="showURL" value="http://www.ritzelrechner.de" editable="false"/-->
+						<Link id="showURL" href="http://www.ritzelrechner.de" text="{i18n>linkDescription}" target="_blank" class="sapUiSmallMarginTop"/>
 						</VBox>
 						
 				</VBox>

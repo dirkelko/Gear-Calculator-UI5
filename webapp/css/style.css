@@ -15,10 +15,52 @@
         padding: 0px;*/
 }
 
-.selectedGraphics {
-		border: 1px dotted red;
+.ribbon-banner {
+   display: block;
+   /*display: none;*/
+   position: fixed;
+   text-align: center;
+   opacity: 0.7;
+   font-weight: 800;
+   color: #265720;
+   background-color: #fcf8f1;
+   border: 2px solid #265720;
+   z-index: 5;
+   -o-transform: rotate(-45deg);
+   -webkit-transform: rotate(-45deg);
+   -moz-transform:    rotate(-45deg);
+   -ms-transform:     rotate(-45deg);
+   transform:         rotate(-45deg);
 }
-.unSelectedGraphics {
+.ribbon-link{
+    color: #265720;
+}
+.ribbon1{
+    line-height:28px;
+    font-size:18px;
+}
+.ribbon2{
+    line-height:20px;
+    font-size:12px;
+} 
+.close_ribbon{
+    position: relative;
+    width: 24px;
+    height: 24px;
+    left: 275px;
+    top: -35px;
+	color: #265720;
+	cursor: pointer;
+	/*border: 2px solid;*/
+	/*border-radius: 100%;*/
+	/*bottom: 10px;*/
+}
+
+.selectedGraphics canvas{
+		outline: 1px dotted red;
+}
+
+.unSelectedGraphics canvas{
 		border: none;
 }
 

@@ -74,6 +74,14 @@
 		"contentDensities": {
 			"compact": true,
 			"cozy": true
+		},
+		"routing": {
+			"targets": {
+				"Help": {
+					"viewType": "XML",
+					"viewName": "Help"
+				}
+			}
 		}
 	},
 	"sap.platform.hcp": {

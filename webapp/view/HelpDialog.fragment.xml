@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core" >
+   <Dialog
+      id="helpDialog"
+      title="{i18n>helpTitle}"
+      showHeader="true">
+   	<content>
+   		<Text class="sapUiSmallMargin"
+   			text="{i18n>helpText}">
+   		</Text>
+   	</content>
+      <beginButton>
+         <Button
+            text="OK"
+            press="onCloseDisplayHelp"/>
+      </beginButton>
+   </Dialog>
+</core:FragmentDefinition>

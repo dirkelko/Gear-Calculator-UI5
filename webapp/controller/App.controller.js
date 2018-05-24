@@ -18,6 +18,24 @@ sap.ui.define([
     		
     	},
       
+		onDisplayHelp: function(oEvent){
+	         var oView = this.getView();
+	         var oDialog = oView.byId("helpDialog");
+	         // create dialog lazily
+	         if (!oDialog) {
+	            // create dialog via fragment factory
+	            oDialog = sap.ui.xmlfragment(oView.getId(), "dirk.gears.view.HelpDialog", this);
+	            oView.addDependent(oDialog);
+	         }
+	
+	         oDialog.open();
+				
+		},
+		
+		onCloseDisplayHelp : function () {
+			this.getView().byId("helpDialog").close();
+		},
+		
       // this function is called when the "gears" models has been loaded
     	onAllDataIsReady: function(){
         	//console.log("Gears Model loaded");
@@ -167,7 +185,7 @@ sap.ui.define([
 			this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
 			this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
 
-    	    this.getView().byId("showURL").setValue(oModel.getURL());
+    	    this.getView().byId("showURL").setHref(oModel.getURL());
 
     	},
     	
@@ -178,31 +196,31 @@ sap.ui.define([
 			oModel.getObject("", this.context).minRatio = obj.minRatio;
 			oModel.getObject("", this.context).chainrings = [obj.defCr];
 			oModel.getObject("", this.context).cogs = [obj.defCog];
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onTireSizeSelected: function(oEvent) {
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).circumference = obj.size;
 			oModel.getObject("", this.context).tireName = obj.inch + "/" + obj.ETRTO + " " + obj.description;
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onChainringSetSelected: function(oEvent) {
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).chainrings = obj.set;
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onCogSetSelected: function(oEvent) {
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).cogs = obj.set;
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onCadenceSelected: function(oEvent) {
 			oModel.getObject("", this.context).cadence = oEvent.getParameter("value");
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onChangeCircumference: function(oEvent) {
@@ -216,7 +234,7 @@ sap.ui.define([
 				oModel.getObject("", this.context).circumference = parseInt(circumference);
 				oModel.getObject("", this.context).tireSize = parseInt(circumference);
 				oModel.getObject("", this.context).tireName = circumference;
-	        	this.getView().byId("showURL").setValue(oModel.getURL());
+	        	this.getView().byId("showURL").setHref(oModel.getURL());
 				oSelectedGraphics.setCircumference(parseInt(circumference));
 				this.getView().byId("selectTires").setSelectedKey(null);
 			}
@@ -224,25 +242,25 @@ sap.ui.define([
 		
 		onMaxChainAngleSelected: function(oEvent) {
 			oModel.getObject("/displayData").maxChainAngle = oEvent.getParameter("value");
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onChainringChange: function(oEvent) {
 			this.getView().byId("selectChainringSet").setChainrings( oEvent.getSource().getSprockets(), this);
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onCogChange: function(oEvent) {
 			this.getView().byId("selectCogSet").setCogs(oEvent.getSource().getSprockets(), this);
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		ondisplayValueSelected: function(oEvent) {
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 
 		onSelectUnits: function(oEvent) {
-	        this.getView().byId("showURL").setValue(oModel.getURL());
+	        this.getView().byId("showURL").setHref(oModel.getURL());
 		},
 		
 		onGraphicsSelected: function(oEvent) {
@@ -270,7 +288,7 @@ sap.ui.define([
 					this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
 					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference, this);
 				}
-	    	    this.getView().byId("showURL").setValue(oModel.getURL());
+	    	    this.getView().byId("showURL").setHref(oModel.getURL());
 			}
 		},
 		 
@@ -300,7 +318,11 @@ sap.ui.define([
 			    this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
 			}
 		    //this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
-	    	this.getView().byId("showURL").setValue(oModel.getURL());
+	    	this.getView().byId("showURL").setHref(oModel.getURL());
+		},
+		
+		onCloseBanner: function(oEvent){
+			this.getView().byId("banner").setVisible(false);
 		}
 		
 	});
