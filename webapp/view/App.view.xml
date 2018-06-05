@@ -5,11 +5,12 @@
 	xmlns="sap.m" 
 	xmlns:wt="dirk.gears.control"
 	controllerName="dirk.gears.controller.App">
+	<Shell>
 	<App>
 			<Page 
 				title="{i18n>title}" 
 				id="gearCalculatorPage"
-				class="sapUiContentPadding"
+				class="sapUiResponsiveContentPadding"
 				showFooter="{device>/system/desktop}"
 				showHeader="{device>/system/desktop}">
 				
@@ -122,7 +123,7 @@
 									enableTickmarks="true" 
 									value="{/gearData/cadence}"
 									change=".onCadenceSelected">
-									<ResponsiveScale tickmarksBetweenLabels="10"/>
+									<ResponsiveScale tickmarksBetweenLabels="0"/>
 								</Slider>
 							
 							</VBox>
@@ -249,4 +250,5 @@
 			</Page>
 
 	</App>
+	</Shell>
 </mvc:View>
