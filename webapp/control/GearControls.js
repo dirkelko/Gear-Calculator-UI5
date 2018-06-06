@@ -14,7 +14,7 @@ sap.ui.define([
             	"width" : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
             	"height" : {type: "sap.ui.core.CSSSize", defaultValue: "100px"},
             	"sprocketType" : {type: "string", defaultValue : ""},
-            	"sprockets" : {type: "int[]",defaultValue : [] }
+            	"sprockets" : {type: "float[]",defaultValue : [] }
 			},
 			aggregations : {
 				_label : {type : "sap.m.Label", multiple: false, visibility : "hidden"},
@@ -24,7 +24,7 @@ sap.ui.define([
 				change : {
 					parameters : {
 						value : {type : "int"},
-						sprockets : {type : "int[]"}
+						sprockets : {type : "float[]"}
 					}
 				}
 			}
