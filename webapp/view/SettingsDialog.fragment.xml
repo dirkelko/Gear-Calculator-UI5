@@ -1,0 +1,62 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:core="sap.ui.core"
+   xmlns:l="sap.ui.layout">
+   <Dialog
+      id="settingsDialog"
+      title="{i18n>settingsTitle}"
+      showHeader="true">
+   	<content>
+		<l:VerticalLayout class="sapUiSmallMarginBegin">
+			<Label text="{i18n>minTeethChainring}" labelFor="inpMinTeethChainring" class="sapUiSmallMarginTop"/>
+	   		<Input	id="inpMinTeethChainring" 
+	   				value="{/displayData/minTeethChainrings}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>maxTeethChainring}" labelFor="inpMaxTeethChainring" class="sapUiTinyMarginTop"/>
+	   		<Input	id="inpMaxTeethChainring" 
+	   				value="{/displayData/maxTeethChainrings}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>minTeethCog}" labelFor="inpMinTeethCog" class="sapUiSmallMarginTop"/>
+	   		<Input	id="inpMinTeethCog" 
+	   				value="{/displayData/minTeethCogs}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>maxTeethCog}" labelFor="inpMaxTeethCog" class="sapUiTinyMarginTop"/>
+	   		<Input	id="inpMaxTeethCog" 
+	   				value="{/displayData/maxTeethCogs}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>minCadence}" labelFor="inpMinCadence" class="sapUiSmallMarginTop"/>
+	   		<Input	id="inpMinCadence" 
+	   				value="{/displayData/minCadence}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>maxCadence}" labelFor="inpMaxCadence" class="sapUiTinyMarginTop"/>
+	   		<Input	id="inpMaxCadence" 
+	   				value="{/displayData/maxCadence}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>maxNumberChainrings}" labelFor="inpMaxNumberChainrings" class="sapUiSmallMarginTop"/>
+	   		<Input	id="inpMaxNumberChainrings" 
+	   				value="{/displayData/maxNumberChainrings}"
+	   				type="Number"
+	   				width="80px"/>
+			<Label text="{i18n>maxNumberCogs}" labelFor="inpMaxNumberCogs" class="sapUiTinyMarginTop"/>
+	   		<Input	id="inpMaxNumberCogs" 
+	   				value="{/displayData/maxNumberCogs}"
+	   				type="Number"
+	   				width="80px"/>
+		</l:VerticalLayout>
+   	</content>
+      <buttons>
+         <Button
+            text="OK"
+            press="onCloseSettingsDialog"/>
+         <Button
+            text="{i18n>cancel}"
+            press="onCancelSettingsDialog"/>
+      </buttons>
+   </Dialog>
+</core:FragmentDefinition>

@@ -36,6 +36,50 @@ sap.ui.define([
 			this.getView().byId("helpDialog").close();
 		},
 		
+		onSettingsDialog: function(oEvent){
+	         var oView = this.getView();
+	         var oDialog = oView.byId("settingsDialog");
+	         // create dialog lazily
+	         if (!oDialog) {
+	            // create dialog via fragment factory
+	            oDialog = sap.ui.xmlfragment(oView.getId(), "dirk.gears.view.SettingsDialog", this);
+	            oView.addDependent(oDialog);
+	         }
+	
+	         oDialog.open();
+				
+		},
+		
+		onCloseSettingsDialog : function () {
+			if (oModel.oData.displayData.minCadence > 10 &&
+				oModel.oData.displayData.maxCadence < 200 &&
+				oModel.oData.displayData.maxCadence > oModel.oData.displayData.minCadence &&
+				oModel.oData.displayData.minTeethCogs > 0 && 
+				oModel.oData.displayData.maxTeethCogs > oModel.oData.displayData.minTeethCogs && 
+				oModel.oData.displayData.maxTeethCogs < 100 &&
+				oModel.oData.displayData.minTeethChainrings > 0 && 
+				oModel.oData.displayData.maxTeethChainrings > oModel.oData.displayData.minTeethChainrings && 
+				oModel.oData.displayData.maxTeethChainrings < 100 &&
+				oModel.oData.displayData.maxNumberChainrings < 6 &&
+				oModel.oData.displayData.maxNumberChainrings > 0 &&
+				oModel.oData.displayData.maxNumberCogs < 21 &&
+				oModel.oData.displayData.maxNumberCogs > 0){
+					this.getView().byId("settingsDialog").close();
+					this.getView().byId("selectCadence").setMin(Number(oModel.oData.displayData.minCadence));
+					this.getView().byId("selectCadence").setMax(Number(oModel.oData.displayData.maxCadence));
+					this.getView().byId("cogControls").setMinteeth(Number(oModel.oData.displayData.minTeethCogs));
+					this.getView().byId("cogControls").setMaxteeth(Number(oModel.oData.displayData.maxTeethCogs));
+					this.getView().byId("cogControls").setNsprockets(Number(oModel.oData.displayData.maxNumberCogs));
+					this.getView().byId("chainringControls").setMinteeth(Number(oModel.oData.displayData.minTeethChainrings));
+					this.getView().byId("chainringControls").setMaxteeth(Number(oModel.oData.displayData.maxTeethChainrings));
+					this.getView().byId("chainringControls").setNsprockets(Number(oModel.oData.displayData.maxNumberChainrings));
+				}
+		},
+		
+		onCancelSettingsDialog : function () {
+			this.getView().byId("settingsDialog").close();
+		},
+
       // this function is called when the "gears" models has been loaded
     	onAllDataIsReady: function(){
         	//console.log("Gears Model loaded");
@@ -140,12 +184,20 @@ sap.ui.define([
 	            		{id : "speed", name : bi18n.getText("speed")}
 	            	],
 	            	unitsIndex : (sUnits == "MPH")? 1 : 0,	           //parseInt(sUnits) : 0,
-	            	compare : (sGears2 !== null)
+	            	compare : (sGears2 !== null),
+	            	maxCadence : 120,
+	            	minCadence : 60,
+	            	minTeethChainrings : 20,
+	            	maxTeethChainrings : 64,
+	            	minTeethCogs : 9,
+	            	maxTeethCogs : 52,
+	            	maxNumberChainrings : 3,
+	            	maxNumberCogs : 12
 	            }
 	         };
 	         oModel = new JSONModel(oGearingData);
 	         oModel.getURL = function(){
-	         	var url = "http://www.ritzelrechner.de/"
+	         	var url = window.location.pathname  
 	        	+ "?GR=" + oModel.oData.gearData.hubId
 	        	+ "&KB=" + oModel.oData.gearData.chainrings 
 	        	+ "&RZ=" + oModel.oData.gearData.cogs

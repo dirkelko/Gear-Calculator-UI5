@@ -140,7 +140,7 @@ sap.ui.define([
 			}
 			
 			//distance/mm between sprockets 
-			var distSprockets = [5.5, 5.5, 5.5, 5.5, 5.3, 5.0, 5.0, 4.8, 4.34, 3.95, 3.9, 3.5]; 
+			var distSprockets = [5.5, 5.5, 5.5, 5.5, 5.3, 5.0, 5.0, 4.8, 4.34, 3.95, 3.9, 3.5, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0, 3.0]; 
 			var distChainrings = 5.0;
 
 			ctx.beginPath();

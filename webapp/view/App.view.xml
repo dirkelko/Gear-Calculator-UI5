@@ -3,6 +3,7 @@
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns:core="sap.ui.core" 
 	xmlns="sap.m" 
+	xmlns:l="sap.ui.layout"
 	xmlns:wt="dirk.gears.control"
 	controllerName="dirk.gears.controller.App">
 	<Shell>
@@ -15,8 +16,8 @@
 				showHeader="{device>/system/desktop}">
 				
 				<headerContent>
-					<Button icon="sap-icon://question-mark" tooltip="Menu" visible="true" press="onDisplayHelp" />
-					<Button icon="sap-icon://action-settings" tooltip="Config" visible="false"/>
+					<Button icon="sap-icon://question-mark" tooltip="Help" visible="true" press="onDisplayHelp" />
+					<Button icon="sap-icon://action-settings" tooltip="Config" visible="true" press="onSettingsDialog"/>
 				</headerContent>
 				<content>
 				<VBox width="auto" class="sapUiResponsiveMargin">
@@ -82,20 +83,20 @@
 					<wt:GearControls 
 						id="chainringControls" 
 						sprockets="{chainrings}"
-						nsprockets="3"
+						nsprockets="{/displayData/maxNumberChainrings}"
 						sprocketType="chainring"
-						minteeth="20"
-						maxteeth="64"
+						minteeth="{/displayData/minTeethChainrings}"
+						maxteeth="{/displayData/maxTeethChainrings}"
 						width="100%"
 						height="50px"
 						change="onChainringChange"/>
 					<wt:GearControls 
 						id="cogControls" 
 						sprockets="{cogs}"
-						nsprockets="12"
+						nsprockets="{/displayData/maxNumberCogs}"
 						sprocketType="cog"
-						minteeth="9"
-						maxteeth="52"
+						minteeth="{/displayData/minTeethCogs}"
+						maxteeth="{/displayData/maxTeethCogs}"
 						width="100%"
 						height="50px"
 						change="onCogChange"/>
@@ -116,8 +117,8 @@
 								<Label text="{i18n>cadence} {/gearData/cadence}" labelFor="selectCadence" class="sapUiTinyMarginTop"/>
 								<Slider 
 									id="selectCadence"
-									min="60" 
-									max="120" 
+									min="{/displayData/minCadence}"
+									max="{/displayData/maxCadence}" 
 									step="1"
 									width="100%"
 									enableTickmarks="true" 
@@ -148,7 +149,7 @@
 									enableTickmarks="true" 
 									value="{/displayData/maxChainAngle}"
 									change=".onMaxChainAngleSelected">
-									<ResponsiveScale tickmarksBetweenLabels="2"/>
+									<!--ResponsiveScale tickmarksBetweenLabels="2"/-->
 								</Slider>
 								
 							</VBox>
