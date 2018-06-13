@@ -174,7 +174,7 @@ sap.ui.define([
 	            	cadence : (sCadence !== null)? Number(sCadence) : 90
 	            },
 	            displayData :{
-	            	maxChainAngle : 2.6,
+	            	maxChainAngle : (sChainAngle !== null)? Number(sChainAngle) : 2.6,
 	            	displayValueId : (sDisplayValueId !== null)? sDisplayValueId : "teeth",
 	            	displayValues : [
 	            		{id : "teeth", name : bi18n.getText("teeth")},
