@@ -12,8 +12,8 @@
 				title="{i18n>title}" 
 				id="gearCalculatorPage"
 				class="sapUiResponsiveContentPadding"
-				showFooter="{device>/system/desktop}"
-				showHeader="{device>/system/desktop}">
+				showFooter="{= !${device>/system/phone} }"
+				showHeader="{= !${device>/system/phone} }">
 				
 				<headerContent>
 					<Button icon="sap-icon://question-mark" tooltip="Help" visible="true" press="onDisplayHelp" />
