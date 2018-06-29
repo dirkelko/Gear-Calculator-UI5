@@ -399,20 +399,20 @@ sap.ui.define([
 			}
 
 			// draw rectangle with ticks for each possible gear and display gear steps
+			ctx.fillStyle = "rgb(150,150,150)";
+			ctx.textAlign = "left";
 			if (this.getHubType() !== "DERS"){
-				ctx.fillStyle = "rgb(150,150,150)";
-			        ctx.textAlign = "left";
 			    ctx.fillText( this.getHubName(), 10, 140);
 			    if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() ){
                     ctx.fillStyle = "#e34c26";
 			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
 			        ctx.textAlign = "center";
 			    }
+			} else {
+			    ctx.fillText( oResourceBundle.getText("capacity") + ": " + (aChainrings[aChainrings.length-1] - aChainrings[0] + aCogs[aCogs.length-1] - aCogs[0]), 10, 140);
 			}
 			ratios.sort(function(a,b){return a-b;});
 			ctx.beginPath();
-			ctx.fillStyle = "rgb(150,150,150)";
-			ctx.textAlign = "left";
 			ctx.fillText( this.getTireName(), 10, 110);
 
 			//ctx.fillText( "%wheel_size".toLocaleString() + " " + tireTypes.getNameByCircumference(gearSet.circumference), 10, 161);

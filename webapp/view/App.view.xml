@@ -241,7 +241,8 @@
 					<Link href="http://openui5.org" text="Built with OpenUI5"/>	
 					<Image
 						src="https://ui5.sap.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
-						densityAware="false"/>
+						densityAware="false"
+						width="24px"/>
 				<!--Button text="Accept" type="Accept" />
 				<Button text="Reject" type="Reject" />
 				<Button text="Edit" />
