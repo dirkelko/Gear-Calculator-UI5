@@ -121,7 +121,7 @@ sap.ui.define([
 				}
 			}
 			
-			function displayValues(ctx, dsplValue,ratio,circumference, cadence, unitFactor, x, y) {
+			function displayValues(ctx, dsplValue,iCog, ratio,circumference, cadence, unitFactor, x, y) {
 		                            switch(dsplValue) {
 		                                case "ratio":
 							                ctx.fillText((ratio).toPrecision(3), x, y - 16);
@@ -130,7 +130,8 @@ sap.ui.define([
 							                ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
 		                                    break;
 		                            	case "gearInches":
-		    					        	ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
+		    					        	//ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
+							                ctx.fillText(iCog, x, y - 16);
 		                                	break;
 		                                case "speed":
 							                ctx.fillText((ratio*circumference/1000* cadence * unitFactor).toPrecision(3), x, y - 16);
@@ -341,6 +342,9 @@ sap.ui.define([
 		                             case "speed":
 		    				 	    	ctx.fillText((aChainrings[i]/aCogs[j]*circumference/1000* cadence * unitFactor).toPrecision(3), x, y - 16);
 		                                break;
+		                             case "cogs":
+		    				 	    	ctx.fillText(aCogs.length - j, x, y - 16);
+		                                break;
 		                             default:
 		                         }
 							}
@@ -361,8 +365,8 @@ sap.ui.define([
 									ctx.fillStyle = "#000000";
 									ctx.fill();
 									ctx.closePath();
-									displayValues(ctx, this.getDsplValues(),aChainrings[i]/aCogs[j]*hubRatios[0],circumference, cadence, unitFactor, xn1, y);
-									displayValues(ctx, this.getDsplValues(),aChainrings[i]/aCogs[j]*hubRatios[1],circumference, cadence, unitFactor, xn2, y);
+									displayValues(ctx, this.getDsplValues(), j, aChainrings[i]/aCogs[j]*hubRatios[0],circumference, cadence, unitFactor, xn1, y);
+									displayValues(ctx, this.getDsplValues(), j, aChainrings[i]/aCogs[j]*hubRatios[1],circumference, cadence, unitFactor, xn2, y);
 									ctx.fillStyle = "rgb(200,200,200)";
 									ctx.fillText(aCogs[j], x, y - 1);
 							} else if (this.getHubType() !== "DERS") {
@@ -378,7 +382,7 @@ sap.ui.define([
 									ctx.fillStyle = "#000000";
 									ctx.fill();
 									ctx.closePath();
-									displayValues(ctx, this.getDsplValues(),aChainrings[i]/aCogs[j]*hubRatios[k],circumference, cadence, unitFactor, xgh, y);
+									displayValues(ctx, this.getDsplValues(), j, aChainrings[i]/aCogs[j]*hubRatios[k],circumference, cadence, unitFactor, xgh, y);
 								}
 								ctx.fillStyle = "rgb(200,200,200)";
 								ctx.fillText(aCogs[j], x, y - 1);

@@ -178,6 +178,7 @@ sap.ui.define([
 	            	displayValueId : (sDisplayValueId !== null)? sDisplayValueId : "teeth",
 	            	displayValues : [
 	            		{id : "teeth", name : bi18n.getText("teeth")},
+	            		{id : "cogs", name : bi18n.getText("cogs")},
 	            		{id : "development", name : bi18n.getText("development")},
 	            		{id : "gearInches", name : bi18n.getText("gearInches")},
 	            		{id : "ratio", name : bi18n.getText("ratio")},
