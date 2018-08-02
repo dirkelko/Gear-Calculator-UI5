@@ -130,8 +130,8 @@ sap.ui.define([
 							                ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
 		                                    break;
 		                            	case "gearInches":
-		    					        	//ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
-							                ctx.fillText(iCog, x, y - 16);
+		    					        	ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
+							                //ctx.fillText(iCog, x, y - 16);
 		                                	break;
 		                                case "speed":
 							                ctx.fillText((ratio*circumference/1000* cadence * unitFactor).toPrecision(3), x, y - 16);
