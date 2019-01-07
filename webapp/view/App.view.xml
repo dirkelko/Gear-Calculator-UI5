@@ -163,7 +163,7 @@
 										path: 'gears>/CogSets'
 									}" 
 									change=".onCogSetSelected">
-									<core:Item key="{gears>name}" text="{gears>name} {gears>description}" />
+									<core:Item key="{gears>name}" text="{gears>description}" />
 								</Select>
 									<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
 									<Select

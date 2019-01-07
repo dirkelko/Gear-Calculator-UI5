@@ -137,10 +137,10 @@ sap.ui.define([
 			var aTireData = this.getView().getModel("gears").getProperty("/TireSizes");
 			for ( i in aTireData ){
 		      	if (aTireData[i].size.toString() == sCircumference){
-		      		var sTireName = aTireData[i].inch +"/" + aTireData[i].ETRTO;
+		      		var sTireName = aTireData[i].inch + "/" + aTireData[i].ETRTO;
 		      	}
 		      	if (aTireData[i].size.toString() == sCircumference2){
-					var sTireName2 = aTireData[i].inch +"/" + aTireData[i].ETRTO;
+					var sTireName2 = aTireData[i].inch + "/" + aTireData[i].ETRTO;
 		      	}
 			}
 			
