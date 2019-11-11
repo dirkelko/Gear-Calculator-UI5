@@ -132,7 +132,7 @@
 								<Label text="{i18n>chainrings}" labelFor="selectChainringSet" class="sapUiTinyMarginTop"/>
 								<Select
 									id="selectChainringSet"
-									width="100%"
+									width="100%" 
 									selectedKey="{chainringSet}"
 									items="{
 										path: 'gears>/ChainringSets'

@@ -5,7 +5,7 @@ sap.ui.define([
 	return Control.extend("dirk.gears.control.GearGraphics", {
 		metadata : {
 			properties : {
-				testValue:   {type : "float", defaultValue : 0},
+				//testValue:   {type : "float", defaultValue : 0},
             	width : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
             	height : {type: "sap.ui.core.CSSSize", defaultValue: "200px"},
 				cadence: {type : "int", defaultValue : 0},
@@ -48,10 +48,10 @@ sap.ui.define([
 			this.fireSelect();
 		}, 
 
-		setTestValue: function (fValue) {
-			this.setProperty("testValue", fValue, true);
-			this.invalidate();	
-		},
+		//setTestValue: function (fValue) {
+		//	this.setProperty("testValue", fValue, true);
+		//	this.invalidate();	
+		//},
 		
 		setCadence: function (fValue) {
 			this.setProperty("cadence", fValue, true);
@@ -60,7 +60,7 @@ sap.ui.define([
 		
 		setCircumference: function (fValue) {
 			this.setProperty("circumference", fValue, true);
-			this.invalidate();	
+			this.invalidate();	∏
 		},
 		
 		setMaxChainAngle: function (fValue) {
@@ -410,7 +410,9 @@ sap.ui.define([
 			    if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() ){
                     ctx.fillStyle = "#e34c26";
 			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
-			        ctx.textAlign = "center";
+			        //ctx.textAlign = "center";
+					ctx.fillStyle = "rgb(150,150,150)";
+					ctx.textAlign = "left";
 			    }
 			} else {
 			    ctx.fillText( oResourceBundle.getText("capacity") + ": " + (aChainrings[aChainrings.length-1] - aChainrings[0] + aCogs[aCogs.length-1] - aCogs[0]), 10, 140);
