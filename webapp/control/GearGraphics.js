@@ -60,7 +60,7 @@ sap.ui.define([
 		
 		setCircumference: function (fValue) {
 			this.setProperty("circumference", fValue, true);
-			this.invalidate();	∏
+			this.invalidate();
 		},
 		
 		setMaxChainAngle: function (fValue) {
