@@ -12,6 +12,7 @@ sap.ui.define([
 		onInit : function () {
       		// get "gears" Model which is defined in manifest and wait until the model data is loaded
 			var oGearsModel = this.getOwnerComponent().getModel("gears");
+			oGearsModel.setSizeLimit(200);
 			oGearsModel.attachRequestCompleted( function(evt) {
 				this.onAllDataIsReady();
     		}.bind(this));
@@ -99,7 +100,7 @@ sap.ui.define([
 	      	var sDisplayValueId	= jQuery.sap.getUriParameters().get("DV");
 	      	
     		this.getView().byId("selectCogSet").setCogs = function(aCogs, that) {
-    			var a = 1;
+				var a = 1;
 				var aCogSets = that.getView().getModel("gears").getProperty("/CogSets");
 				that.getView().byId("selectCogSet").setSelectedKey(aCogSets[0].name);
 				for (var i in aCogSets){
