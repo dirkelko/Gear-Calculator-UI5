@@ -161,8 +161,8 @@
 ],
 "HubData" : [
 	{ "id" : "DERS", "name" : "Derailleurs",		"minRatio" : 1.00, "defCr" : 42, "defCog" : 17, "ratios": [1.000] },
-	{ "id" : "SGLS", "name" : "Singlespeed",      	"minRatio" : 1.00, "defCr" : 42, "defCog" : 17, "ratios": [1.000] },
-	{ "id" : "RLSH", "name" : "Rohloff Speedhub",  	"minRatio" : 2.10, "defCr" : 42, "defCog" : 16, "ratios": [0.279,0.316,0.360,0.409,0.464,0.528,0.600,0.682,0.774,0.881,1.000,1.135,1.292,1.467]},
+	{ "id" : "SGLS", "name" : "Singlespeed",      	"minRatio" : 0.00, "defCr" : 42, "defCog" : 17, "ratios": [1.000] },
+	{ "id" : "RLSH", "name" : "Rohloff Speedhub",  	"minRatio" : 1.90, "defCr" : 42, "defCog" : 16, "ratios": [0.279,0.316,0.360,0.409,0.464,0.528,0.600,0.682,0.774,0.881,1.000,1.135,1.292,1.467]},
 	{ "id" : "SIM9", "name" : "SRAM iMotion 9",    	"minRatio" : 1.73, "defCr" : 38, "defCog" : 20, "ratios": [0.542,0.621,0.727,0.853,1.000,1.172,1.375,1.611,1.844] },
 	{ "id" : "SA11", "name" : "Shimano Alfine 11",	"minRatio" : 1.88, "defCr" : 39, "defCog" : 20, "ratios": [0.527,0.681,0.770,0.878,0.995,1.134,1.292,1.462,1.667,1.888,2.153] },
 	{ "id" : "P118", "name" : "Pinion P1.18",    	"minRatio" : 0.50, "defCr" : 30, "defCog" : 26, "ratios": [0.549,0.612,0.683,0.755,0.843,0.944,1.056,1.177,1.313,1.452,1.621,1.815,2.030,2.262,2.524,2.792,3.117,3.490] },

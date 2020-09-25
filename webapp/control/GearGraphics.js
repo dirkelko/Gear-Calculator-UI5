@@ -7,7 +7,7 @@ sap.ui.define([
 			properties : {
 				//testValue:   {type : "float", defaultValue : 0},
             	width : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
-            	height : {type: "sap.ui.core.CSSSize", defaultValue: "200px"},
+				height : {type: "sap.ui.core.CSSSize", defaultValue: "200px"},
 				cadence: {type : "int", defaultValue : 0},
 				circumference: {type : "int", defaultValue : 0},
 				circumference2: {type : "int", defaultValue : 0},
@@ -101,9 +101,11 @@ sap.ui.define([
 
 		repaint: function () {
 			this.invalidate();	
+			//console.log("repaint");
 		},
 		
 		reset: function () {
+			//console.log("reset");
 		},
 
 		paintScales: function(ctx){
@@ -464,19 +466,40 @@ sap.ui.define([
 			this.paintScales(ctx);
 		},
 		
-		renderer : function (oRM, oControl) {
-			oRM.write("<div");
-			oRM.writeControlData(oControl);
-        	oRM.addStyle("width", oControl.getWidth());  // write the Control property size; the Control has validated it 
-        	oRM.addStyle("height", oControl.getHeight());
-        	oRM.writeStyles();
-			oRM.addClass("gearGraphics");
-			oRM.writeClasses();
-			oRM.write(">");
-			oRM.write("<div id=\"gearChart\" class=\"canvasArea\">");
-			oRM.write("<canvas class=\"gearCanvas\" style=\"border:1px solid #000000;\"></canvas>");
-			oRM.write("</div>");
-			oRM.write("</div>");
+		renderer : {
+				apiVersion : 2,
+				render : function (oRM, oControl) {
+
+				oRM.openStart("div", oControl);
+				oRM.class("gearGraphics");
+				oRM.style("width", oControl.getWidth());
+				oRM.style("height", oControl.getHeight());
+				oRM.openEnd();
+					oRM.openStart("div");
+					oRM.attr("id", "gearChart");
+					oRM.class("canvasArea");
+					oRM.openEnd();
+						oRM.openStart("canvas");
+						oRM.class("gearCanvas");
+						oRM.style("border", "1px solid #000000");
+						oRM.openEnd();
+						oRM.close("canvas");
+					oRM.close("div");
+				oRM.close("div");
+
+				/*oRM.write("<div");
+				oRM.writeControlData(oControl);
+				oRM.addStyle("width", oControl.getWidth());  // write the Control property size; the Control has validated it 
+				oRM.addStyle("height", oControl.getHeight());
+				oRM.writeStyles();
+				oRM.addClass("gearGraphics");
+				oRM.writeClasses();
+				oRM.write(">");
+				oRM.write("<div id=\"gearChart\" class=\"canvasArea\">");
+				oRM.write("<canvas class=\"gearCanvas\" style=\"border:1px solid #000000;\"></canvas>");
+				oRM.write("</div>");
+				oRM.write("</div>");*/
+			}
 		}
 	});
 });

@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageToast",
-	"sap/ui/model/json/JSONModel"
-],	function (Controller, MessageToast, JSONModel) {
+	"sap/ui/model/json/JSONModel",
+	"sap/base/util/UriParameters"
+],	function (Controller, MessageToast, JSONModel, UriParameters) {
 	"use strict";
 	
 	var oModel;
@@ -86,18 +87,19 @@ sap.ui.define([
         	//console.log("Gears Model loaded");
         	
 	      	// get gearing data from URL parameters
-	      	var sGears 			= jQuery.sap.getUriParameters().get("GR");
-	      	var sChainrings	 	= jQuery.sap.getUriParameters().get("KB");
-	      	var sCogs 			= jQuery.sap.getUriParameters().get("RZ");
-	      	var sCircumference 	= jQuery.sap.getUriParameters().get("UF");
-	      	var sGears2 		= jQuery.sap.getUriParameters().get("GR2");
-	      	var sChainrings2 	= jQuery.sap.getUriParameters().get("KB2");
-	      	var sCogs2 			= jQuery.sap.getUriParameters().get("RZ2");
-	      	var sCircumference2 = jQuery.sap.getUriParameters().get("UF2");
-	      	var sCadence		= jQuery.sap.getUriParameters().get("TF");
-	      	var sChainAngle 	= jQuery.sap.getUriParameters().get("SL");
-	      	var sUnits			= jQuery.sap.getUriParameters().get("UN");
-	      	var sDisplayValueId	= jQuery.sap.getUriParameters().get("DV");
+			var oUriParameters = new UriParameters(window.location.href);
+			var sGears 			= oUriParameters.get("GR");
+			var sChainrings	 	= oUriParameters.get("KB");
+			var sCogs 			= oUriParameters.get("RZ");
+			var sCircumference 	= oUriParameters.get("UF");
+			var sGears2 		= oUriParameters.get("GR2");
+			var sChainrings2 	= oUriParameters.get("KB2");
+			var sCogs2 			= oUriParameters.get("RZ2");
+			var sCircumference2 = oUriParameters.get("UF2");
+			var sCadence		= oUriParameters.get("TF");
+			var sChainAngle 	= oUriParameters.get("SL");
+			var sUnits			= oUriParameters.get("UN");
+			var sDisplayValueId	= oUriParameters.get("DV");
 	      	
     		this.getView().byId("selectCogSet").setCogs = function(aCogs, that) {
 				var a = 1;

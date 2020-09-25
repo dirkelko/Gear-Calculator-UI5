@@ -7,14 +7,15 @@ sap.ui.define([
 		metadata : {
 			properties : {
 				"value": 	{type : "float", defaultValue : 0},
-				"nsprockets": {type: "int", defaultValue : 10},
-				"minteeth": {type: "int", defaultValue : 20},
-				"maxteeth": {type: "int", defaultValue : 64},
+				"nsprockets": {type: "int", defaultValue : 0},
+				"minteeth": {type: "int", defaultValue : 0},
+				"maxteeth": {type: "int", defaultValue : 0},
 				"image": {type: "string", defaultValue : ""},
             	"width" : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
             	"height" : {type: "sap.ui.core.CSSSize", defaultValue: "100px"},
             	"sprocketType" : {type: "string", defaultValue : ""},
-            	"sprockets" : {type: "float[]",defaultValue : [] }
+            	"sprockets" : {type: "float[]",defaultValue : [] },
+				"widthPixels" : {type : "int", defaultValue : 0},
 			},
 			aggregations : {
 				_label : {type : "sap.m.Label", multiple: false, visibility : "hidden"},
@@ -40,10 +41,12 @@ sap.ui.define([
 		
 		onThemeChanged :  function() {
 			this.invalidate();	
+			//console.log("onThemeChanged");
 		},
 
 		repaint :  function() {
 			this.invalidate();
+			//console.log("repaint");
 		},
 
 		setValue: function (fValue) {
@@ -61,9 +64,26 @@ sap.ui.define([
 			this.getAggregation("_label2").setText(oResourceBundle.getText("productRatingLabelInitial"));
 		},
 
+		onBeforeRendering : function () {
+			if (this.getDomRef()){
+
+				// get all sprocket divs from the document
+				var sprockets = document.getElementById(this.getId()).getElementsByClassName(this.getSprocketType());
+				for (var i=0; i < sprockets.length; i++){
+					sprockets[i].removeEventListener('touchstart', this.fMouseDown);
+					sprockets[i].removeEventListener('mousedown', this.fMouseDown);
+				}
+				window.removeEventListener('touchstart', this.fMouseUp);
+				window.removeEventListener('touchend', this.fMouseUp);
+
+			}
+		},
+
 		onAfterRendering : function () {  // add draggable sprockets here
+
 			var x0 = 100;
 			var nWidth = this.$().width() - x0;
+			this.setWidthPixels(this.$().width() - x0);
 			var dragSprocket;
 			var dx;
 			//var st = this.getSprocketType();
@@ -74,14 +94,29 @@ sap.ui.define([
 			var oControl = this;
 			var iSprocket = 0;
 			var oldTick = 0;
-			
+			var nearestTick = 0;
+
+			// get all sprocket divs from the document
+			var sprockets = document.getElementById(this.getId()).getElementsByClassName(this.getSprocketType());
 			// get all scaleTicks of this control
 			var aTicks = document.getElementById(this.getId()).getElementsByClassName("scaleTick");
 			var offSet = document.getElementById(this.getId()).offsetLeft;
 			
+			// position ticks
 			for (var i=0; i < aTicks.length; i++){
-				aTicks[i].style.left = x0 + Math.round(i*nWidth/(nTickMarks-1)) - 1 + "px";
+				aTicks[i].style.left = x0 + Math.round(i*oControl.getWidthPixels()/(nTickMarks-1)) - 1 + "px";
 			}
+			// position sprockets
+			var aSprockets = this.getSprockets();
+			for (i=0 ; i < aSprockets.length; i++){
+				sprockets[i].innerHTML = aSprockets[i];
+				sprockets[i].innerText = aSprockets[i];
+				//position sprockets
+				sprockets[i].style.left = x0+ Math.round( (this.getSprockets()[i]-minTeeth )*oControl.getWidthPixels()/(nTickMarks-1) - sprockets[i].clientWidth/2) + "px";
+			}
+
+
+			//if ( sprockets.length === this.getNsprockets() && sprockets.length > 0 && aTicks.length > 0 ){
 			
 			function mouseMove(e){
 				if (bDrag){
@@ -101,7 +136,6 @@ sap.ui.define([
 						oldTick = maxTeeth;
 					} else if ( nearestTick < minTeeth && oldTick > 0 ) {
 						if (dragSprocket.innerText !== ""){
-							//console.log("delete" + dragSprocket.innerText);
 							var aSprockets = oControl.getSprockets();
 						    aSprockets.splice(iSprocket,1);
 							oControl.setProperty("sprockets", aSprockets, true);
@@ -130,7 +164,6 @@ sap.ui.define([
 
 			function mouseDown(e){
 				bDrag = true;
-				//dragSprocket = e.srcElement;
 				dragSprocket = e.currentTarget;
 				if (e.type === "mousedown"){
 					dx = e.clientX - offSet - dragSprocket.offsetLeft;
@@ -139,7 +172,6 @@ sap.ui.define([
 					dx = e.touches[0].clientX - offSet - dragSprocket.offsetLeft;
 					window.addEventListener('touchmove', mouseMove, true);
 				}
-				//console.log(dragSprocket.offsetLeft);
 				// which sprocked has bee clicked?
 				for ( i=0; i < oControl.getSprockets().length; i++){
 					if (oControl.getSprockets()[i] === Number(dragSprocket.innerText)){
@@ -148,65 +180,85 @@ sap.ui.define([
 				}
 			}
 			
-
 			function mouseUp(e){
 				if (bDrag){ 
 					//position sprocket at nearest tick
     				window.removeEventListener('mousemove', mouseMove, true);
     				window.removeEventListener('touchmove', mouseMove, true);
     				var nPosition = e.clientX - offSet - dx + dragSprocket.clientWidth/2;
-					var nearestTick = Math.round((nPosition - x0)/nWidth*(nTickMarks-1) + minTeeth);
+					var nearestTick = Math.round((nPosition - x0)/oControl.getWidthPixels()*(nTickMarks-1) + minTeeth);
 					if ( nearestTick < minTeeth ){
 						dragSprocket.style.left = 0;
 					} else {
     					dragSprocket.style.left = 
-    					Math.min(x0 + nWidth - dragSprocket.clientWidth/2, x0 + (nearestTick - minTeeth)*nWidth/(nTickMarks-1) - dragSprocket.clientWidth/2) + "px";
+    					Math.round(Math.min(x0 + oControl.getWidthPixels() - dragSprocket.clientWidth/2, x0 + (nearestTick - minTeeth)*oControl.getWidthPixels()/(nTickMarks-1) - dragSprocket.clientWidth/2)) + "px";
 					}
     				bDrag = false;
 				}
 			}
 
-			var sprockets = document.getElementById(this.getId()).getElementsByClassName(this.getSprocketType());
+			//var sprockets = document.getElementById(this.getId()).getElementsByClassName(this.getSprocketType());
 			for (i=0; i < sprockets.length; i++){
-				sprockets[i].addEventListener('touchstart', mouseDown, false);
-				sprockets[i].addEventListener('mousedown', mouseDown, false);
+				sprockets[i].addEventListener('touchstart', mouseDown);
+				sprockets[i].addEventListener('mousedown', mouseDown);
 			}
+			this.fMouseDown = mouseDown;
 			
-			var aSprockets = this.getSprockets();
-			for (i=0 ; i < aSprockets.length; i++){
-				sprockets[i].innerHTML = aSprockets[i];
-				sprockets[i].innerText = aSprockets[i];
-				//position sprockets
-				sprockets[i].style.left = x0+ Math.round( (this.getSprockets()[i]-minTeeth )*nWidth/(nTickMarks-1) - sprockets[i].clientWidth/2) + "px";
-			}
-
     		window.addEventListener('touchend', mouseUp, true);
-    		window.addEventListener('mouseup', mouseUp, true);
+			window.addEventListener('mouseup', mouseUp, true);
+			this.fMouseUp = mouseUp;
 			//this.invalidate();
+
+			//}
 		},
 
-		renderer : function (oRM, oControl) {
+		renderer : { 
+			apiVersion : 2,
+			render : function (oRM, oControl) {
 			
-			oRM.write("<div");
-			oRM.writeControlData(oControl);
-        	oRM.addStyle("width", oControl.getWidth());  // write the Control property size; the Control has validated it 
-        	oRM.addStyle("height", oControl.getHeight());
-        	oRM.writeStyles();
-			oRM.addClass("gearControl");
-			oRM.writeClasses();
-			oRM.write(">");
-			var nSelectableChainrings = oControl.getMaxteeth() - oControl.getMinteeth() + 1;
-			var sClass = oControl.getSprocketType();
+				oRM.openStart("div", oControl);
+				oRM.class("gearControl");
+				oRM.style("width",oControl.getWidth());
+				oRM.style("height", oControl.getHeight());
+				var nSelectableChainrings = oControl.getMaxteeth() - oControl.getMinteeth() + 1;
+				var sClass = oControl.getSprocketType();
+				oRM.openEnd();
 
-			for ( var it=0; it< nSelectableChainrings; it++) {
-				var sDiv = "<div class=\"scaleTick\"/>";
-				oRM.write(sDiv);
-    		}
-			for ( var is=0; is< oControl.getNsprockets(); is++) {
-				sDiv = "<div class=\"" + sClass + "\">" + "</div>";
-				oRM.write(sDiv);
-    		}
-			oRM.write("</div>");
+				for ( var it=0; it< nSelectableChainrings; it++) {
+					oRM.openStart("div");
+					oRM.class("scaleTick");
+					oRM.openEnd();
+					oRM.close("div");
+				}
+				for ( var is=0; is< oControl.getNsprockets(); is++) {
+					oRM.openStart("div");
+					oRM.class(sClass);
+					oRM.openEnd();
+					oRM.close("div");
+				}
+				oRM.close("div");
+
+				/*oRM.write("<div");
+				oRM.writeControlData(oControl);
+				oRM.addStyle("width", oControl.getWidth());  // write the Control property size; the Control has validated it 
+				oRM.addStyle("height", oControl.getHeight());
+				oRM.writeStyles();
+				oRM.addClass("gearControl");
+				oRM.writeClasses();
+				oRM.write(">");
+				var nSelectableChainrings = oControl.getMaxteeth() - oControl.getMinteeth() + 1;
+				var sClass = oControl.getSprocketType();
+
+				for ( var it=0; it< nSelectableChainrings; it++) {
+					var sDiv = "<div class=\"scaleTick\"></div>";
+					oRM.write(sDiv);
+				}
+				for ( var is=0; is< oControl.getNsprockets(); is++) {
+					sDiv = "<div class=\"" + sClass + "\">" + "</div>";
+					oRM.write(sDiv);
+				}
+				oRM.write("</div>");*/
+			}
 		}
 	});
 });
