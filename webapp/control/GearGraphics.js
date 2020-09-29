@@ -467,8 +467,8 @@ sap.ui.define([
 		},
 		
 		renderer : {
-				apiVersion : 2,
-				render : function (oRM, oControl) {
+			apiVersion : 2,
+			render : function (oRM, oControl) {
 
 				oRM.openStart("div", oControl);
 				oRM.class("gearGraphics");
