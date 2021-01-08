@@ -82,8 +82,10 @@ sap.ui.define([
 		onAfterRendering : function () {  // add draggable sprockets here
 
 			var x0 = 100;
-			var nWidth = this.$().width() - x0;
-			this.setWidthPixels(this.$().width() - x0);
+			var nWidth = this.getDomRef().clientWidth - x0;
+			//var nWidth = this.$().width() - x0;
+			this.setWidthPixels(this.getDomRef().clientWidth - x0);
+			//this.setWidthPixels(this.$().width() - x0);
 			var dragSprocket;
 			var dx;
 			//var st = this.getSprocketType();
