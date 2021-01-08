@@ -1,0 +1,23 @@
+{
+  "name": "gear-calculator-ui5",
+  "version": "1.0.0",
+  "description": "Gear Calculator",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dirkelko/Gear-Calculator-UI5.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dirkelko/Gear-Calculator-UI5/issues"
+  },
+  "homepage": "https://github.com/dirkelko/Gear-Calculator-UI5#readme",
+  "dependencies": {
+    "serve": "^11.3.0"
+  },
+  "devDependencies": {}
+}

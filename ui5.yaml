@@ -1,0 +1,7 @@
+specVersion: '2.2'
+metadata:
+  name: gear-calculator-ui5
+type: application
+framework:
+  name: OpenUI5
+  version: "1.85.2"
