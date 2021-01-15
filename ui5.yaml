@@ -5,3 +5,7 @@ type: application
 framework:
   name: OpenUI5
   version: "1.85.2"
+resources:
+  configuration:
+    paths:
+      webapp: webapp

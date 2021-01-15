@@ -26,12 +26,16 @@
 			data-sap-ui-theme="sap_belize"
 			data-sap-ui-compatVersion="edge"
 			data-sap-ui-async="true"
+			data-sap-ui-xx-supportedLanguages="en,de,fr,es,hu"
 			data-sap-ui-resourceroots='{
 				"dirk.gears": "./"
 			}'>
 		</script>
 		
 		<script>
+			if (window.location.hostname == "sharfst.de"){
+				window.location.replace("https://susesraspi.kyfrcpqaosfewut9.myfritz.net/moodle/my/");
+			}
 			sap.ui.getCore().attachInit(function () {
 				new sap.ui.core.ComponentContainer({
 					name : "dirk.gears"

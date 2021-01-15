@@ -3,7 +3,7 @@
         "id": "",
         "title": "dirk.gears.Gears",
         "type": "SAP_UI5_Component",
-        "componentUrl": "/webapp",
+        "componentUrl": "/XXXwebapp",
         "appUrl": "#Gears-Display",
         "navigationComponentName": "dirk.gears",
         "intentSemanticObject": "Gears",

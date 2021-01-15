@@ -1,0 +1,1 @@
+sap.ui.define(["sap/ui/core/UIComponent","sap/ui/model/json/JSONModel","sap/ui/Device"],function(e,i,n){"use strict";return e.extend("dirk.gears.Component",{metadata:{manifest:"json"},init:function(){e.prototype.init.apply(this,arguments);var t=new i(n);t.setDefaultBindingMode("OneWay");this.setModel(t,"device")}})});
