@@ -7,253 +7,292 @@
 	controllerName="dirk.gears.controller.App">
 	<Shell>
 	<App>
-			<Page 
-				title="{i18n>title}" 
-				id="gearCalculatorPage"
-				class="sapUiResponsiveContentPadding"
-				showFooter="{= !${device>/system/phone} }"
-				showHeader="{= !${device>/system/phone} }">
-				
-				<headerContent>
-					<Button icon="sap-icon://question-mark" tooltip="Help" visible="true" press="onDisplayHelp" />
-					<Button icon="sap-icon://action-settings" tooltip="Config" visible="true" press="onSettingsDialog"/>
-				</headerContent>
-				<content>
-				<VBox width="auto" class="sapUiResponsiveMargin">
-					<wt:Banner
-						id="banner"
-						text="{i18n>bannerText}"
-						subText="{i18n>bannerSubText}"
-						link="{i18n>bannerLink}"
-						width="400px"
-						height="50px"
-						top="50px"
-						left="-120px"
-						visible="true"
-						select="onCloseBanner"/>
-					<wt:GearGraphics
-						id="gearGraphics"
-						width="100%"
-						height="200px"
-						class="sapUiSmallMarginBottom"
-						cadence="{/gearData/cadence}"
-						circumference="{/gearData/circumference}"
-						circumference2="{/gearData2/circumference}"
-						tireName="{/gearData/tireName}"
-						chainrings="{/gearData/chainrings}"
-						cogs="{/gearData/cogs}"
-						chainrings2="{/gearData2/chainrings}"
-						cogs2="{/gearData2/cogs}"
-						hubType="{/gearData/hubId}"
-						hubName="{/gearData/name}"
-						hubRatios="{/gearData/ratios}"
-						hubRatios2="{/gearData2/ratios}"
-						minHubRatio="{/gearData/minRatio}"
-						dsplValues="{/displayData/displayValueId}"
-						unitsIndex="{/displayData/unitsIndex}"
-						maxChainAngle="{/displayData/maxChainAngle}"
-						visible="true"
-						select="onGraphicsSelected"/>
-					<wt:GearGraphics
-						id="gearGraphics2"
-						width="100%"
-						height="200px"
-						class="sapUiSmallMarginBottom"
-						cadence="{/gearData/cadence}"
-						circumference="{/gearData2/circumference}"
-						circumference2="{/gearData/circumference}"
-						tireName="{/gearData2/tireName}"
-						chainrings="{/gearData2/chainrings}"
-						cogs="{/gearData2/cogs}"
-						chainrings2="{/gearData/chainrings}"
-						cogs2="{/gearData/cogs}"
-						hubType="{/gearData2/hubId}"
-						hubName="{/gearData2/name}"
-						hubRatios="{/gearData2/ratios}"
-						hubRatios2="{/gearData/ratios}"
-						minHubRatio="{/gearData2/minRatio}"
-						dsplValues="{/displayData/displayValueId}"
-						unitsIndex="{/displayData/unitsIndex}"
-						maxChainAngle="{/displayData/maxChainAngle}"
-						visible="{/displayData/compare}"
-						select="onGraphicsSelected"/>
-					<wt:GearControls 
-						id="chainringControls" 
-						sprockets="{chainrings}"
-						nsprockets="{/displayData/maxNumberChainrings}"
-						sprocketType="chainring"
-						minteeth="{/displayData/minTeethChainrings}"
-						maxteeth="{/displayData/maxTeethChainrings}"
-						width="100%"
-						height="50px"
-						change="onChainringChange"/>
-					<wt:GearControls 
-						id="cogControls" 
-						sprockets="{cogs}"
-						nsprockets="{/displayData/maxNumberCogs}"
-						sprocketType="cog"
-						minteeth="{/displayData/minTeethCogs}"
-						maxteeth="{/displayData/maxTeethCogs}"
-						width="100%"
-						height="50px"
-						change="onCogChange"/>
+		<Page 
+			title="{i18n>title}" 
+			id="gearCalculatorPage"
+			class="sapUiResponsiveContentPadding"
+			showFooter="{= !${device>/system/phone} }"
+			showHeader="{= !${device>/system/phone} }">
+			
+			<headerContent>
+				<Button icon="sap-icon://question-mark" tooltip="Help" visible="true" press="onDisplayHelp" />
+				<Button icon="sap-icon://action-settings" tooltip="Config" visible="true" press="onSettingsDialog"/>
+			</headerContent>
+			<content>
+			<VBox width="auto" class="sapUiResponsiveMargin">
+				<wt:Banner
+					id="banner"
+					text="{i18n>bannerText}"
+					subText="{i18n>bannerSubText}"
+					link="{i18n>bannerLink}"
+					width="400px"
+					height="50px"
+					top="50px"
+					left="-120px"
+					visible="true"
+					select="onCloseBanner"/>
+				<wt:GearGraphics
+					id="gearGraphics"
+					width="100%"
+					height="200px"
+					class="sapUiSmallMarginBottom"
+					cadence="{/gearData/cadence}"
+					circumference="{/gearData/circumference}"
+					circumference2="{/gearData2/circumference}"
+					tireName="{/gearData/tireName}"
+					chainrings="{/gearData/chainrings}"
+					cogs="{/gearData/cogs}"
+					avlCogs="{/gearData/avlCogs}"
+					chainrings2="{/gearData2/chainrings}"
+					cogs2="{/gearData2/cogs}"
+					hubType="{/gearData/hubId}"
+					hubName="{/gearData/name}"
+					hubRatios="{/gearData/ratios}"
+					hubRatios2="{/gearData2/ratios}"
+					minHubRatio="{/gearData/minRatio}"
+					dsplValues="{/displayData/displayValueId}"
+					unitsIndex="{/displayData/unitsIndex}"
+					riderWeightGt100="{/displayData/riderWeightGt100}"
+					totalWeightGt250="{/displayData/totalWeightGt250}"
+					maxChainAngle="{/displayData/maxChainAngle}"
+					visible="true"
+					select="onGraphicsSelected"/>
+				<wt:GearGraphics
+					id="gearGraphics2"
+					width="100%"
+					height="200px"
+					class="sapUiSmallMarginBottom"
+					cadence="{/gearData/cadence}"
+					circumference="{/gearData2/circumference}"
+					circumference2="{/gearData/circumference}"
+					tireName="{/gearData2/tireName}"
+					chainrings="{/gearData2/chainrings}"
+					cogs="{/gearData2/cogs}"
+					avlCogs="{/gearData2/avlCogs}"
+					chainrings2="{/gearData/chainrings}"
+					cogs2="{/gearData/cogs}"
+					hubType="{/gearData2/hubId}"
+					hubName="{/gearData2/name}"
+					hubRatios="{/gearData2/ratios}"
+					hubRatios2="{/gearData/ratios}"
+					minHubRatio="{/gearData2/minRatio}"
+					dsplValues="{/displayData/displayValueId}"
+					unitsIndex="{/displayData/unitsIndex}"
+					riderWeightGt100="{/displayData/riderWeightGt100}"
+					totalWeightGt250="{/displayData/totalWeightGt250}"
+					maxChainAngle="{/displayData/maxChainAngle}"
+					visible="{/displayData/compare}"
+					select="onGraphicsSelected"/>
+				<wt:GearControls 
+					id="chainringControls" 
+					sprockets="{chainrings}"
+					nsprockets="{/displayData/maxNumberChainrings}"
+					sprocketType="chainring"
+					minteeth="{/displayData/minTeethChainrings}"
+					maxteeth="{/displayData/maxTeethChainrings}"
+					width="100%"
+					height="50px"
+					change="onChainringChange"/>
+				<wt:GearControls 
+					id="cogControls" 
+					sprockets="{cogs}"
+					nsprockets="{/displayData/maxNumberCogs}"
+					sprocketType="cog"
+					minteeth="{/displayData/minTeethCogs}"
+					maxteeth="{/displayData/maxTeethCogs}"
+					width="100%"
+					height="50px"
+					change="onCogChange"/>
+					
+				<HBox class="sapUiSmallMarginTop">
+					<VBox width="25%" class="sapUiSmallMarginEnd">
+						<Label text="{i18n>gearing}" labelFor="selectGears" class="sapUiTinyMarginTop"/>
+						<Select
+							id="selectGears"
+							width="100%"
+							selectedKey="{hubId}"
+							items="{
+								path: 'gears>/HubData'
+							}" 
+							change=".onGearSelected">
+							<core:Item key="{gears>id}" text="{gears>name}" />
+						</Select>
+						<Label text="{i18n>cadence} {/gearData/cadence}" labelFor="selectCadence" class="sapUiTinyMarginTop"/>
+						<Slider 
+							id="selectCadence"
+							min="{/displayData/minCadence}"
+							max="{/displayData/maxCadence}" 
+							step="1"
+							width="100%"
+							enableTickmarks="true" 
+							value="{/gearData/cadence}"
+							change=".onCadenceSelected">
+							<ResponsiveScale tickmarksBetweenLabels="0"/>
+						</Slider>
+					
+					</VBox>
+					<VBox width="25%" visible="false" id="vBSelectRiderWeight">
+						<Label text="{i18n>riderWeight}" labelFor="selectRiderWeight" class="sapUiTinyMarginTop"/>
+						<RadioButtonGroup 
+							id="selectRiderWeight"
+							width="100%"
+							columns="3" 
+							selectedIndex="{/displayData/riderWeightGt100}"
+							select="onSelectRiderWeight">
+							<RadioButton text="{i18n>lt100kg}" />
+							<RadioButton text="{i18n>gt100kg}" />
+						</RadioButtonGroup>
+						<Label text="{i18n>systemWeight}" labelFor="checkboxes" class="sapUiTinyMarginTop"/>
+						<RadioButtonGroup 
+							id="selectSystemWeight"
+							width="100%"
+							columns="3" 
+							selectedIndex="{/displayData/totalWeightGt250}"
+							select="onSelectRiderWeight">
+							<RadioButton text="{i18n>lt250kg}" selected = "true"/>
+							<RadioButton text="{i18n>gt250kg}" />
+						</RadioButtonGroup>
 						
-						<HBox class="sapUiSmallMarginTop">
-							<VBox width="25%" class="sapUiSmallMarginEnd">
-								<Label text="{i18n>gearing}" labelFor="selectGears" class="sapUiTinyMarginTop"/>
-								<Select
-									id="selectGears"
-									width="100%"
-									selectedKey="{hubId}"
-									items="{
-										path: 'gears>/HubData'
-									}" 
-									change=".onGearSelected">
-									<core:Item key="{gears>id}" text="{gears>name}" />
-								</Select>
-								<Label text="{i18n>cadence} {/gearData/cadence}" labelFor="selectCadence" class="sapUiTinyMarginTop"/>
-								<Slider 
-									id="selectCadence"
-									min="{/displayData/minCadence}"
-									max="{/displayData/maxCadence}" 
-									step="1"
-									width="100%"
-									enableTickmarks="true" 
-									value="{/gearData/cadence}"
-									change=".onCadenceSelected">
-									<ResponsiveScale tickmarksBetweenLabels="0"/>
-								</Slider>
-							
-							</VBox>
-							<VBox width="25%" >
-								<Label text="{i18n>chainrings}" labelFor="selectChainringSet" class="sapUiTinyMarginTop"/>
-								<Select
-									id="selectChainringSet"
-									width="100%" 
-									selectedKey="{chainringSet}"
-									items="{
-										path: 'gears>/ChainringSets'
-									}" 
-									change=".onChainringSetSelected">
-									<core:Item key="{gears>name}" text="{gears>name}" />
-								</Select>
-								<Label text="{i18n>maxChainAngle}" labelFor="selectMaxChainAngle" class="sapUiTinyMarginTop"/>
-								<Slider 
-									id="selectMaxChainAngle"
-									min="1.5" 
-									max="3.5" 
-									step="0.1"
-									enableTickmarks="true" 
-									value="{/displayData/maxChainAngle}"
-									change=".onMaxChainAngleSelected">
-									<!--ResponsiveScale tickmarksBetweenLabels="2"/-->
-								</Slider>
-								
-							</VBox>
-							<VBox width="25%" class="sapUiSmallMarginBegin">
-								<Label text="{i18n>cogs}" labelFor="selectCogSet" class="sapUiTinyMarginTop"/>
-								<Select
-									id="selectCogSet"
-									width="100%"
-									selectedKey="{cogSet}"
-									items="{
-										path: 'gears>/CogSets'
-									}" 
-									change=".onCogSetSelected">
-									<core:Item key="{gears>name}" text="{gears>description}" />
-								</Select>
-									<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
-									<Select
-										id="selectDisplayValue"
-										width="100%"
-										selectedKey="{/displayData/displayValueId}"
-										items="{
-											path: '/displayData/displayValues'
-										}" 
-										change="ondisplayValueSelected">
-										<core:Item key="{id}" text="{name}" />
-									</Select>
-							</VBox>
-							<VBox width="15%" class="sapUiSmallMarginBegin">
-								<Label text="{i18n>tire_size}" labelFor="selectTires" class="sapUiTinyMarginTop"/>
-									<ComboBox
-										id="selectTires"
-										selectedKey="{tireSize}"
-										width="100%"
-										items="{
-											path: 'gears>/TireSizes'
-										}"
-										showSecondaryValues = "true"
-										selectionChange="onTireSizeSelected"
-										>
-										<core:ListItem key="{gears>size}" text="{gears>inch} / {gears>ETRTO}" additionalText="{gears>description}"/>
-									</ComboBox>
-									<Label text="{i18n>units}" labelFor="selectUnits" class="sapUiTinyMarginTop"/>
-									<RadioButtonGroup 
-										id="selectUnits"
-										width="100%"
-										columns="3" 
-										selectedIndex="{/displayData/unitsIndex}"
-										select="onSelectUnits">
-										<RadioButton text="{i18n>metric}" />
-										<RadioButton text="{i18n>imperial}" />
-									</RadioButtonGroup>
-							</VBox>
-							<VBox width="10%">
-									<Label text="{i18n>circumference}/mm" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>
-									<Input
-										id="inpCircumference"
-										type="Text"
-										width="100%"
-										maxLength="4"
-										value="{circumference}"
-										liveChange="onChangeCircumference">
-									</Input>
-									<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
-									<ToggleButton 
-										id="btnCompare" 
-										text="{i18n>compare}" 
-										enabled="true" 
-										pressed="{/displayData/compare}" 
-										press="onPress" 
-										width="100%"
-										class="sapUiTinyMarginTop"/>
-
-							</VBox>
-						</HBox>
-						<VBox >
+					</VBox>
+					<VBox width="25%" visible="true" id="vBSelectChainringSet">
+						<Label text="{i18n>chainrings}" labelFor="selectChainringSet" class="sapUiTinyMarginTop"/>
+						<Select
+							id="selectChainringSet"
+							width="100%" 
+							selectedKey="{chainringSet}"
+							items="{
+								path: 'gears>/ChainringSets'
+							}" 
+							change=".onChainringSetSelected">
+							<core:Item key="{gears>name}" text="{gears>name}" />
+						</Select>
+						<Label text="{i18n>maxChainAngle}" labelFor="selectMaxChainAngle" class="sapUiTinyMarginTop"/>
+						<Slider 
+							id="selectMaxChainAngle"
+							min="1.5" 
+							max="3.5" 
+							step="0.1"
+							enableTickmarks="true" 
+							value="{/displayData/maxChainAngle}"
+							change=".onMaxChainAngleSelected">
+							<!--ResponsiveScale tickmarksBetweenLabels="2"/-->
+						</Slider>
 						
-						<!--Label text="URL" labelFor="showURL" class="sapUiTinyMarginTop"/-->
-						<!--Input id="showURL" value="http://www.ritzelrechner.de" editable="false"/-->
-						<Link id="showURL" href="http://www.ritzelrechner.de" text="{i18n>linkDescription}" target="_blank" class="sapUiSmallMarginTop"/>
+					</VBox>
+					<VBox width="25%" class="sapUiSmallMarginBegin">
+						<VBox visible="true" id="vBSelectCogSet">
+							<Label text="{i18n>cogs}" labelFor="selectCogSet" class="sapUiTinyMarginTop"/>
+							<Select
+								id="selectCogSet"
+								width="100%"
+								selectedKey="{cogSet}"
+								items="{
+									path: 'gears>/CogSets'
+								}" 
+								change=".onCogSetSelected">
+								<core:Item key="{gears>name}" text="{gears>description}" />
+							</Select>
 						</VBox>
-						
+						<VBox visible="false" id="vBSelectBikeType">
+							<Label text="{i18n>bikeType}" labelFor="checkboxes" class="sapUiTinyMarginTop"/>
+							<HBox id="checkboxes"> 
+								<CheckBox id="cbCargo" text="{i18n>cargo}" selected="false" />
+								<CheckBox id="cbTandem" text="{i18n>tandem}" selected="false" />
+								<CheckBox id="cbHpv" text="{i18n>hpv}" selected="false" />
+							</HBox>
+						</VBox>
+						<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
+						<Select
+							id="selectDisplayValue"
+							width="100%"
+							selectedKey="{/displayData/displayValueId}"
+							items="{
+								path: '/displayData/displayValues'
+							}" 
+							change="ondisplayValueSelected">
+							<core:Item key="{id}" text="{name}" />
+						</Select>
+					</VBox>
+					<VBox width="16%" class="sapUiSmallMarginBegin">
+						<Label text="{i18n>tire_size}" labelFor="selectTires" class="sapUiTinyMarginTop"/>
+						<ComboBox
+							id="selectTires"
+							selectedKey="{tireSize}"
+							width="100%"
+							items="{
+								path: 'gears>/TireSizes'
+							}"
+							showSecondaryValues = "true"
+							selectionChange="onTireSizeSelected"
+							>
+							<core:ListItem key="{gears>size}" text="{gears>inch} / {gears>ETRTO}" additionalText="{gears>description}"/>
+						</ComboBox>
+						<Label text="{i18n>units}" labelFor="selectUnits" class="sapUiTinyMarginTop"/>
+						<RadioButtonGroup 
+							id="selectUnits"
+							width="100%"
+							columns="3" 
+							selectedIndex="{/displayData/unitsIndex}"
+							select="onSelectUnits">
+							<RadioButton text="{i18n>metric}" />
+							<RadioButton text="{i18n>imperial}" />
+						</RadioButtonGroup>
+					</VBox>
+					<VBox width="9%">
+							<Label text="{i18n>circumference}/mm" labelFor="inpCircumference" class="sapUiTinyMarginTop"/>
+							<Input
+								id="inpCircumference"
+								type="Text"
+								width="100%"
+								maxLength="4"
+								value="{circumference}"
+								liveChange="onChangeCircumference">
+							</Input>
+							<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
+							<ToggleButton 
+								id="btnCompare" 
+								text="{i18n>compare}" 
+								enabled="true" 
+								pressed="{/displayData/compare}" 
+								press="onPress" 
+								width="100%"
+								class="sapUiTinyMarginTop"/>
+
+					</VBox>
+				</HBox>
+				<VBox >
+				
+				<!--Label text="URL" labelFor="showURL" class="sapUiTinyMarginTop"/-->
+				<!--Input id="showURL" value="http://www.ritzelrechner.de" editable="false"/-->
+				<Link id="showURL" href="http://www.ritzelrechner.de" text="{i18n>linkDescription}" target="_blank" class="sapUiSmallMarginTop"/>
 				</VBox>
-				</content>
-		<footer>
-			<Toolbar>
-				<Label text="© Dirk Feeken"/>
-				<ToolbarSpacer/>			
-				<Label text="info@ritzelrechner.de"/> 
-				<ToolbarSpacer/>
-				<Link href="https://www.instagram.com/ritzelrechner/" text="RITZELRECHNER"/>	
-				<Image
-						src="images/insttr.png"
-						densityAware="false"
-						width="29px"/>
-				<ToolbarSpacer/>
-				<Link href="http://openui5.org" text="Built with OpenUI5"/>	
-				<Image
-						src="https://ui5.sap.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
-						densityAware="false"
-						width="29px"/>
-				<!--Button text="Accept" type="Accept" />
-				<Button text="Reject" type="Reject" />
-				<Button text="Edit" />
-				<Button text="Delete" /-->
-			</Toolbar>
-		</footer>
-			</Page>
+					
+			</VBox>
+			</content>
+			<footer>
+				<Toolbar>
+					<Label text="© Dirk Feeken"/>
+					<ToolbarSpacer/>			
+					<Label text="info@ritzelrechner.de"/> 
+					<ToolbarSpacer/>
+					<Link href="https://www.instagram.com/ritzelrechner/" text="RITZELRECHNER"/>	
+					<Image
+							src="images/insttr.png"
+							densityAware="false"
+							width="29px"/>
+					<ToolbarSpacer/>
+					<Link href="http://openui5.org" text="Built with OpenUI5"/>	
+					<Image
+							src="https://ui5.sap.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
+							densityAware="false"
+							width="29px"/>
+					<!--Button text="Accept" type="Accept" />
+					<Button text="Reject" type="Reject" />
+					<Button text="Edit" />
+					<Button text="Delete" /-->
+				</Toolbar>
+			</footer>
+		</Page>
 
 	</App>
 	</Shell>

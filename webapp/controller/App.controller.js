@@ -1,9 +1,11 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/m/MessageToast",
+	'sap/m/MessageStrip',
+	'sap/ui/core/library',
 	"sap/ui/model/json/JSONModel",
 	"sap/base/util/UriParameters"
-],	function (Controller, MessageToast, JSONModel, UriParameters) {
+],	function (Controller, MessageToast, MessageStrip, coreLibrary, JSONModel, UriParameters) {
 	"use strict";
 	
 	var oModel;
@@ -108,6 +110,7 @@ sap.ui.define([
 				for (var i in aCogSets){
 					if (JSON.stringify(aCogs.sort()) === JSON.stringify(aCogSets[i].set.sort())){
 						that.getView().byId("selectCogSet").setSelectedKey(aCogSets[i].name);
+						return;
 					}
 				}
     		};
@@ -124,7 +127,7 @@ sap.ui.define([
 
 
 
-        	// get Ratios of Hubs and tire names from Gears.jason as choosen in URL
+        	// get Ratios of Hubs and tire names from Gears.json as choosen in URL
         	var aHubData = this.getView().getModel("gears").getProperty("/HubData");
         	this.getView().getModel("gears").getProperty("/HubData")[0].name = "XXX";
 			for (var i in aHubData ){
@@ -188,6 +191,8 @@ sap.ui.define([
 	            		{id : "speed", name : bi18n.getText("speed")}
 	            	],
 	            	unitsIndex : (sUnits == "MPH")? 1 : 0,	           //parseInt(sUnits) : 0,
+					riderWeightGt100 : 0,
+					totalWeightGt250 : 0,
 	            	compare : (sGears2 !== null),
 	            	maxCadence : 120,
 	            	minCadence : 60,
@@ -196,7 +201,7 @@ sap.ui.define([
 	            	minTeethCogs : 9,
 	            	maxTeethCogs : 52,
 	            	maxNumberChainrings : 3,
-	            	maxNumberCogs : 13
+	            	maxNumberCogs : 13,
 	            }
 	         };
 	         oModel = new JSONModel(oGearingData);
@@ -228,31 +233,51 @@ sap.ui.define([
 		     this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference);
 	         oSelectedGraphics = this.getView().byId("gearGraphics");
 	         
-	         // register custom controls for automatic repainting after resizing
+			 this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
+			 this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
+ 
+			 this.getView().byId("showURL").setHref(oModel.getURL());
+
+			 // register custom controls for automatic repainting after resizing
 	         var fRepaint = function(oEvent){
 				var resizeTargetCtrl = oEvent.control;
 				resizeTargetCtrl.repaint();
-				};
+			 };
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("gearGraphics"), fRepaint );
 			 sap.ui.core.ResizeHandler.register( this.getView().byId("gearGraphics2"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("chainringControls"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("cogControls"), fRepaint );
              
-			this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
-			this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
+			//this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
+			//this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
 
-    	    this.getView().byId("showURL").setHref(oModel.getURL());
+    	    //this.getView().byId("showURL").setHref(oModel.getURL());
 
     	},
     	
 		onGearSelected: function(oEvent) {
+			//MessageToast.show("Gears selected");
+
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).ratios = obj.ratios;
 			oModel.getObject("", this.context).name = obj.name;
 			oModel.getObject("", this.context).minRatio = obj.minRatio;
 			oModel.getObject("", this.context).chainrings = [obj.defCr];
 			oModel.getObject("", this.context).cogs = [obj.defCog];
+			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
 	        this.getView().byId("showURL").setHref(oModel.getURL());
+			if (obj.id=="RLSH") {
+				this.getView().byId("vBSelectCogSet").setVisible(false);
+				this.getView().byId("vBSelectChainringSet").setVisible(false);
+				this.getView().byId("vBSelectBikeType").setVisible(true);
+				this.getView().byId("vBSelectRiderWeight").setVisible(true);
+
+			}else{
+				this.getView().byId("vBSelectCogSet").setVisible(true);
+				this.getView().byId("vBSelectChainringSet").setVisible(true);
+				this.getView().byId("vBSelectBikeType").setVisible(false);
+				this.getView().byId("vBSelectRiderWeight").setVisible(false);
+			}
 		},
 		
 		onTireSizeSelected: function(oEvent) {

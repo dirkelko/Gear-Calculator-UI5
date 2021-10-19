@@ -10,42 +10,63 @@
 		<l:VerticalLayout class="sapUiSmallMarginBegin">
 			<Label text="{i18n>minTeethChainring}" labelFor="inpMinTeethChainring" class="sapUiSmallMarginTop"/>
 	   		<Input	id="inpMinTeethChainring" 
-	   				value="{/displayData/minTeethChainrings}"
+					value="{
+						path : '/displayData/minTeethChainrings',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>maxTeethChainring}" labelFor="inpMaxTeethChainring" class="sapUiTinyMarginTop"/>
 	   		<Input	id="inpMaxTeethChainring" 
-	   				value="{/displayData/maxTeethChainrings}"
+					value="{
+						path : '/displayData/maxTeethChainrings',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>minTeethCog}" labelFor="inpMinTeethCog" class="sapUiSmallMarginTop"/>
 	   		<Input	id="inpMinTeethCog" 
-	   				value="{/displayData/minTeethCogs}"
-	   				type="Number"
+					value="{
+						path : '/displayData/minTeethCogs',
+						type : 'sap.ui.model.type.Integer',
+						constraints : {
+							minimum: 1,
+							maximum: 20
+						}
+					}"
+					type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>maxTeethCog}" labelFor="inpMaxTeethCog" class="sapUiTinyMarginTop"/>
 	   		<Input	id="inpMaxTeethCog" 
-	   				value="{/displayData/maxTeethCogs}"
+					value="{
+						path : '/displayData/maxTeethCogs',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>minCadence}" labelFor="inpMinCadence" class="sapUiSmallMarginTop"/>
 	   		<Input	id="inpMinCadence" 
-	   				value="{/displayData/minCadence}"
+					value="{
+						path : '/displayData/minCadence',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>maxCadence}" labelFor="inpMaxCadence" class="sapUiTinyMarginTop"/>
 	   		<Input	id="inpMaxCadence" 
-	   				value="{/displayData/maxCadence}"
-	   				type="Number"
+					value="{
+						path : '/displayData/maxCadence',
+						type : 'sap.ui.model.type.Integer'}"
+					type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>maxNumberChainrings}" labelFor="inpMaxNumberChainrings" class="sapUiSmallMarginTop"/>
 	   		<Input	id="inpMaxNumberChainrings" 
-	   				value="{/displayData/maxNumberChainrings}"
+					value="{
+						path : '/displayData/maxNumberChainrings',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 			<Label text="{i18n>maxNumberCogs}" labelFor="inpMaxNumberCogs" class="sapUiTinyMarginTop"/>
 	   		<Input	id="inpMaxNumberCogs" 
-	   				value="{/displayData/maxNumberCogs}"
+					value="{
+						path : '/displayData/maxNumberCogs',
+						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
 		</l:VerticalLayout>

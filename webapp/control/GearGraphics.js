@@ -1,6 +1,6 @@
 sap.ui.define([
 	"sap/ui/core/Control"
-], function (Control) {
+], function (Control, MessageToast) {
 	"use strict";
 	return Control.extend("dirk.gears.control.GearGraphics", {
 		metadata : {
@@ -14,6 +14,7 @@ sap.ui.define([
 				tireName: {type : "string", defaultValue : ""},
 				chainrings: {type : "float[]", defaultValue : [] },
 				cogs: {type : "float[]", defaultValue : [] },
+				avlCogs: {type : "float[]", defaultValue : [] },
 				chainrings2: {type : "float[]", defaultValue : [] },
 				cogs2: {type : "float[]", defaultValue : [] },
 				hubType: {type: "string" , defaultValue : "DERS" },
@@ -24,6 +25,9 @@ sap.ui.define([
 				minHubRatio: {type : "float" },
 				maxChainAngle: {type : "float", defaultValue : 0},
 				unitsIndex: {type : "int", defaultValue : 0},
+				riderWeightGt100: {type : "int", defaultValue : 0},
+				totalWeightGt250: {type : "int", defaultValue : 0},
+				cargo: {type : "boolean", defaultValue : false},
 				selected : {type : "boolean", group : "Data", defaultValue : false}
 			},
 			aggregations : {
@@ -75,6 +79,11 @@ sap.ui.define([
 
 		setCogs: function (fValue) {
 			this.setProperty("cogs", fValue, true);
+			this.invalidate();	
+		},
+		
+		setAvlCogs: function (fValue) {
+			this.setProperty("avlCogs", fValue, true);
 			this.invalidate();	
 		},
 		
@@ -155,6 +164,7 @@ sap.ui.define([
 			var hubRatios = this.getHubRatios();
 			var aChainrings2 = this.getChainrings2().sort( function(a,b){return a-b;});
 			var aCogs2 = this.getCogs2().sort(function(a,b){return a-b;});
+			var aAvlCogs = this.getAvlCogs();
 			var hubRatios2 = this.getHubRatios2();
 			// calculate the minimal and maximal ratio of the selected hub, chainring, cog selection
 			var minRatio = aChainrings[0]/aCogs[aCogs.length-1]*hubRatios[0];
@@ -409,7 +419,15 @@ sap.ui.define([
 			ctx.textAlign = "left";
 			if (this.getHubType() !== "DERS"){
 			    ctx.fillText( this.getHubName(), 10, 140);
-			    if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() ){
+				if (!aAvlCogs.includes((aCogs[0])) && aAvlCogs.length > 0){
+					ctx.fillStyle = "#e34c26";
+					ctx.fillText(oResourceBundle.getText("noStandardCog"), 10, 50);
+					ctx.fillStyle = "rgb(150,150,150)";
+				}
+				if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || 
+					 this.getHubType() == "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < 3.0 && 
+					 (aCogs[aCogs.length-1] == 13 || aCogs[aCogs.length-1] == 14 ) ||
+					 this.getRiderWeightGt100()===1 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5){
                     ctx.fillStyle = "#e34c26";
 			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
 			        //ctx.textAlign = "center";
