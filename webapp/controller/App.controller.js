@@ -125,8 +125,6 @@ sap.ui.define([
 				}
     		};
 
-
-
         	// get Ratios of Hubs and tire names from Gears.json as choosen in URL
         	var aHubData = this.getView().getModel("gears").getProperty("/HubData");
         	this.getView().getModel("gears").getProperty("/HubData")[0].name = "XXX";
@@ -247,6 +245,9 @@ sap.ui.define([
 			 sap.ui.core.ResizeHandler.register( this.getView().byId("gearGraphics2"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("chainringControls"), fRepaint );
 	         sap.ui.core.ResizeHandler.register( this.getView().byId("cogControls"), fRepaint );
+
+			 this.setControlsState(oModel.oData.gearData.hubId);
+
              
 			//this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
 			//this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
@@ -266,7 +267,11 @@ sap.ui.define([
 			oModel.getObject("", this.context).cogs = [obj.defCog];
 			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
 	        this.getView().byId("showURL").setHref(oModel.getURL());
-			if (obj.id=="RLSH") {
+			this.setControlsState(obj.id);
+		},
+
+		setControlsState: function( hubType ){
+			if (hubType=="RLSH") {
 				this.getView().byId("vBSelectCogSet").setVisible(false);
 				this.getView().byId("vBSelectChainringSet").setVisible(false);
 				this.getView().byId("vBSelectBikeType").setVisible(true);
@@ -278,6 +283,16 @@ sap.ui.define([
 				this.getView().byId("vBSelectBikeType").setVisible(false);
 				this.getView().byId("vBSelectRiderWeight").setVisible(false);
 			}
+			if (hubType=="DERS") {
+				this.getView().byId("selectChainringSet").setEnabled(true);
+				this.getView().byId("selectCogSet").setEnabled(true);
+				this.getView().byId("selectMaxChainAngle").setEnabled(true);
+			} else {
+				this.getView().byId("selectChainringSet").setEnabled(false);
+				this.getView().byId("selectCogSet").setEnabled(false);
+				this.getView().byId("selectMaxChainAngle").setEnabled(false);
+			}
+
 		},
 		
 		onTireSizeSelected: function(oEvent) {
@@ -359,6 +374,8 @@ sap.ui.define([
 					this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData2.chainrings, this);
 					this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData2.cogs, this);
 					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData2.circumference, this);
+					this.setControlsState(oModel.oData.gearData2.hubId);
+
 				}else{
 					oSelectedGraphics = this.getView().byId("gearGraphics");
 	        		this.context = this.getView().getModel().createBindingContext("/gearData");
@@ -368,6 +385,7 @@ sap.ui.define([
 					this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
 					this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
 					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference, this);
+					this.setControlsState(oModel.oData.gearData.hubId);
 				}
 	    	    this.getView().byId("showURL").setHref(oModel.getURL());
 			}

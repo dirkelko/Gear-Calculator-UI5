@@ -28,6 +28,8 @@ sap.ui.define([
 				riderWeightGt100: {type : "int", defaultValue : 0},
 				totalWeightGt250: {type : "int", defaultValue : 0},
 				cargo: {type : "boolean", defaultValue : false},
+				tandem: {type : "boolean", defaultValue : false},
+				hpv: {type : "boolean", defaultValue : false},
 				selected : {type : "boolean", group : "Data", defaultValue : false}
 			},
 			aggregations : {
@@ -362,7 +364,7 @@ sap.ui.define([
 							}
 		
 							// draw additional triangles for gear hubs
-							if (this.getHubType().slice(0,2) === "NU"){
+							if (this.getHubType().slice(0,2) === "NU" || this.getHubType().slice(0,2) === "EN"){
 									var xn1 = gX + Math.round(xLog(minDev, maxDev, width, aChainrings[i] / aCogs[j] 
 									    * hubRatios[0]*circumference / 1000));
 									var xn2 = gX + Math.round(xLog(minDev, maxDev, width, aChainrings[i] / aCogs[j] 
@@ -427,7 +429,8 @@ sap.ui.define([
 				if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || 
 					 this.getHubType() == "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < 3.0 && 
 					 (aCogs[aCogs.length-1] == 13 || aCogs[aCogs.length-1] == 14 ) ||
-					 this.getRiderWeightGt100()===1 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5){
+					 this.getHubType() == "RLSH" && (this.getRiderWeightGt100()===1 || this.getCargo() || this.getTandem() || this.getHpv()) 
+					 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5 ){
                     ctx.fillStyle = "#e34c26";
 			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
 			        //ctx.textAlign = "center";

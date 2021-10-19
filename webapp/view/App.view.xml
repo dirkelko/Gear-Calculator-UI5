@@ -54,6 +54,9 @@
 					unitsIndex="{/displayData/unitsIndex}"
 					riderWeightGt100="{/displayData/riderWeightGt100}"
 					totalWeightGt250="{/displayData/totalWeightGt250}"
+					cargo="{/displayData/cargo}"
+					tandem="{/displayData/tandem}"
+					hpv="{/displayData/hpv}"
 					maxChainAngle="{/displayData/maxChainAngle}"
 					visible="true"
 					select="onGraphicsSelected"/>
@@ -80,6 +83,9 @@
 					unitsIndex="{/displayData/unitsIndex}"
 					riderWeightGt100="{/displayData/riderWeightGt100}"
 					totalWeightGt250="{/displayData/totalWeightGt250}"
+					cargo="{/displayData/cargo}"
+					tandem="{/displayData/tandem}"
+					hpv="{/displayData/hpv}"
 					maxChainAngle="{/displayData/maxChainAngle}"
 					visible="{/displayData/compare}"
 					select="onGraphicsSelected"/>
@@ -154,7 +160,7 @@
 						</RadioButtonGroup>
 						
 					</VBox>
-					<VBox width="25%" visible="true" id="vBSelectChainringSet">
+					<VBox width="25%" visible="true" id="vBSelectChainringSet" >
 						<Label text="{i18n>chainrings}" labelFor="selectChainringSet" class="sapUiTinyMarginTop"/>
 						<Select
 							id="selectChainringSet"
@@ -196,9 +202,9 @@
 						<VBox visible="false" id="vBSelectBikeType">
 							<Label text="{i18n>bikeType}" labelFor="checkboxes" class="sapUiTinyMarginTop"/>
 							<HBox id="checkboxes"> 
-								<CheckBox id="cbCargo" text="{i18n>cargo}" selected="false" />
-								<CheckBox id="cbTandem" text="{i18n>tandem}" selected="false" />
-								<CheckBox id="cbHpv" text="{i18n>hpv}" selected="false" />
+								<CheckBox id="cbCargo" text="{i18n>cargo}" selected="{/displayData/cargo}" />
+								<CheckBox id="cbTandem" text="{i18n>tandem}" selected="{/displayData/tandem}" />
+								<CheckBox id="cbHpv" text="{i18n>hpv}" selected="{/displayData/hpv}" />
 							</HBox>
 						</VBox>
 						<Label text="{i18n>displayValue}" labelFor="selectDisplayValue" class="sapUiTinyMarginTop"/>
