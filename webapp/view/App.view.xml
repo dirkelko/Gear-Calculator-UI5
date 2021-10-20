@@ -6,11 +6,11 @@
 	xmlns:wt="dirk.gears.control"
 	controllerName="dirk.gears.controller.App">
 	<Shell>
-	<App>
+
 		<Page 
 			title="{i18n>title}" 
 			id="gearCalculatorPage"
-			class="sapUiResponsiveContentPadding"
+			enableScrolling="false"
 			showFooter="{= !${device>/system/phone} }"
 			showHeader="{= !${device>/system/phone} }">
 			
@@ -111,7 +111,7 @@
 					change="onCogChange"/>
 					
 				<HBox class="sapUiSmallMarginTop">
-					<VBox width="25%" class="sapUiSmallMarginEnd">
+					<VBox width="20%" class="sapUiSmallMarginEnd">
 						<Label text="{i18n>gearing}" labelFor="selectGears" class="sapUiTinyMarginTop"/>
 						<Select
 							id="selectGears"
@@ -185,7 +185,7 @@
 						</Slider>
 						
 					</VBox>
-					<VBox width="25%" class="sapUiSmallMarginBegin">
+					<VBox width="28%" class="sapUiSmallMarginBegin">
 						<VBox visible="true" id="vBSelectCogSet">
 							<Label text="{i18n>cogs}" labelFor="selectCogSet" class="sapUiTinyMarginTop"/>
 							<Select
@@ -219,7 +219,7 @@
 							<core:Item key="{id}" text="{name}" />
 						</Select>
 					</VBox>
-					<VBox width="16%" class="sapUiSmallMarginBegin">
+					<VBox width="18%" class="sapUiSmallMarginBegin">
 						<Label text="{i18n>tire_size}" labelFor="selectTires" class="sapUiTinyMarginTop"/>
 						<ComboBox
 							id="selectTires"
@@ -300,6 +300,5 @@
 			</footer>
 		</Page>
 
-	</App>
 	</Shell>
 </mvc:View>
