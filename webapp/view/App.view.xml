@@ -6,11 +6,10 @@
 	xmlns:wt="dirk.gears.control"
 	controllerName="dirk.gears.controller.App">
 	<Shell>
-
 		<Page 
 			title="{i18n>title}" 
 			id="gearCalculatorPage"
-			enableScrolling="false"
+			enableScrolling="true"
 			showFooter="{= !${device>/system/phone} }"
 			showHeader="{= !${device>/system/phone} }">
 			
@@ -181,7 +180,6 @@
 							enableTickmarks="true" 
 							value="{/displayData/maxChainAngle}"
 							change=".onMaxChainAngleSelected">
-							<!--ResponsiveScale tickmarksBetweenLabels="2"/-->
 						</Slider>
 						
 					</VBox>
@@ -268,8 +266,6 @@
 				</HBox>
 				<VBox >
 				
-				<!--Label text="URL" labelFor="showURL" class="sapUiTinyMarginTop"/-->
-				<!--Input id="showURL" value="http://www.ritzelrechner.de" editable="false"/-->
 				<Link id="showURL" href="http://www.ritzelrechner.de" text="{i18n>linkDescription}" target="_blank" class="sapUiSmallMarginTop"/>
 				</VBox>
 					
@@ -292,10 +288,7 @@
 							src="https://ui5.sap.com/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
 							densityAware="false"
 							width="29px"/>
-					<!--Button text="Accept" type="Accept" />
-					<Button text="Reject" type="Reject" />
-					<Button text="Edit" />
-					<Button text="Delete" /-->
+
 				</Toolbar>
 			</footer>
 		</Page>

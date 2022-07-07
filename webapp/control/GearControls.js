@@ -45,12 +45,12 @@ sap.ui.define([
 		
 		onThemeChanged :  function() {
 			this.invalidate();	
-			console.log("onThemeChanged");
+			//console.log("onThemeChanged");
 		},
 
 		repaint :  function() {
 			this.invalidate();
-			console.log("repaint");
+			//console.log("repaint");
 		},
 
 		setValue: function (fValue) {
@@ -272,7 +272,7 @@ sap.ui.define([
 			apiVersion : 2,
 			render : function (oRM, oControl) {
 
-				console.log("render");
+				//console.log("render");
 			
 				oRM.openStart("div", oControl);
 				oRM.class("gearControl");

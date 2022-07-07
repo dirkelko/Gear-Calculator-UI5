@@ -22,9 +22,6 @@
    text-align: center;
    opacity: 0.8;
    font-weight: 800;
-   color: white;
-   background-color: red;
-   border: 2px solid white;
    z-index: 5;
    -o-transform: rotate(-45deg);
    -webkit-transform: rotate(-45deg);
@@ -33,23 +30,31 @@
    transform:         rotate(-45deg);
 }
 .ribbon-link{
-    color: white;
+    color: rgb(252,248,241);
+	z-index: 15;
 }
 .ribbon1{
+	background-color: rgb(38,87,32);
+	color: rgb(252,248,241);
+	border-top: 2px solid rgb(252,248,241);
     line-height:28px;
     font-size:18px;
+	z-index: 10;
 }
 .ribbon2{
-    line-height:20px;
+	background-color: rgb(252,248,241);
+	color: rgb(38,87,32);
+	border-bottom: 2px solid rgb(38,87,32);
+    line-height:28px;
     font-size:12px;
 } 
 .close_ribbon{
     position: relative;
     width: 24px;
     height: 24px;
-    left: 275px;
-    top: -35px;
-	color:white;
+    left: 270px;
+    top: -50px;
+	color:rgb(252,248,241);
 	cursor: pointer;
 	/*border: 2px solid;*/
 	/*border-radius: 100%;*/
