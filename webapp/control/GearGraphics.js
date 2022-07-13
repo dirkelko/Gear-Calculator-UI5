@@ -9,8 +9,8 @@ sap.ui.define([
             	width : {type: "sap.ui.core.CSSSize", defaultValue: "1000px"},
 				height : {type: "sap.ui.core.CSSSize", defaultValue: "200px"},
 				cadence: {type : "int", defaultValue : 0},
-				circumference: {type : "int", defaultValue : 0},
-				circumference2: {type : "int", defaultValue : 0},
+				circumference: {type : "string", defaultValue : "2000"},
+				circumference2: {type : "string", defaultValue : "2000"},
 				tireName: {type : "string", defaultValue : ""},
 				chainrings: {type : "float[]", defaultValue : [] },
 				cogs: {type : "float[]", defaultValue : [] },
@@ -18,6 +18,7 @@ sap.ui.define([
 				chainrings2: {type : "float[]", defaultValue : [] },
 				cogs2: {type : "float[]", defaultValue : [] },
 				hubType: {type: "string" , defaultValue : "DERS" },
+				hubType2: {type: "string" , defaultValue : "DERS" },
 				hubName: {type: "string" , defaultValue : "" },
 				hubRatios: {type : "float[]", defaultValue : [1.0] },
 				hubRatios2: {type : "float[]", defaultValue : [1.0] },
@@ -30,7 +31,8 @@ sap.ui.define([
 				cargo: {type : "boolean", defaultValue : false},
 				tandem: {type : "boolean", defaultValue : false},
 				hpv: {type : "boolean", defaultValue : false},
-				selected : {type : "boolean", group : "Data", defaultValue : false}
+				selected : {type : "boolean", group : "Data", defaultValue : false},
+				minMaxValues : {type : "float[]"}
 			},
 			aggregations : {
 			},
@@ -93,6 +95,11 @@ sap.ui.define([
 			this.setProperty("hubType", fValue, true);
 			this.invalidate();	
 		},
+
+		setHubType2: function (fValue) {
+			this.setProperty("hubType2", fValue, true);
+			this.invalidate();	
+		},
 		
 		setHubRatios: function (fValue) {
 			this.setProperty("hubRatios", fValue, true);
@@ -107,6 +114,11 @@ sap.ui.define([
 		setSelected: function (fValue){
 			fValue = !!fValue;
 			this.setProperty("selected", fValue, true);
+			return this;
+		},
+
+		setMinMaxValues: function (fValue){
+			this.setProperty("minMaxValue", fValue, true);
 			return this;
 		},
 
@@ -164,17 +176,27 @@ sap.ui.define([
 			var aChainrings = this.getChainrings().sort( function(a,b){return a-b;});
 			var aCogs = this.getCogs().sort(function(a,b){return a-b;});
 			var hubRatios = this.getHubRatios();
+			if (this.getHubType() == "RLSH" && 6 && aChainrings.length == 1 && aChainrings[0] <= 20){
+				hubRatios.forEach(function(item,index,arr) {
+					arr[index] = item * 2.5;
+				})
+			}
 			var aChainrings2 = this.getChainrings2().sort( function(a,b){return a-b;});
 			var aCogs2 = this.getCogs2().sort(function(a,b){return a-b;});
 			var aAvlCogs = this.getAvlCogs();
 			var hubRatios2 = this.getHubRatios2();
+			if (this.getHubType2() == "RLSH" && aChainrings2.length == 1 && aChainrings2[0] <= 20){
+				hubRatios2.forEach(function(item,index,arr) {
+					arr[index] = item * 2.5;
+				})
+			}
 			// calculate the minimal and maximal ratio of the selected hub, chainring, cog selection
 			var minRatio = aChainrings[0]/aCogs[aCogs.length-1]*hubRatios[0];
 			var maxRatio = aChainrings[aChainrings.length-1]/aCogs[0]*hubRatios[hubRatios.length-1];
 			var minRatio2 = aChainrings2[0]/aCogs2[aCogs2.length-1]*hubRatios2[0];
 			var maxRatio2 = aChainrings2[aChainrings2.length-1]/aCogs2[0]*hubRatios2[hubRatios2.length-1];
-			var circumference = this.getCircumference();
-			var circumference2 = this.getCircumference2();
+			var circumference = parseInt(this.getCircumference());
+			var circumference2 = parseInt(this.getCircumference2());
 			var cadence = this.getCadence();
 			var maxChainAngle = this.getMaxChainAngle();
 			
@@ -220,8 +242,8 @@ sap.ui.define([
 			var gX = 0.5;
 			var gY = 0.5;
 			
-			var minDev = Math.min( minRatio * this.getCircumference()/1000 *0.8, minRatio2 * this.getCircumference2()/1000 *0.8 ) ;
-			var maxDev = Math.max( maxRatio * this.getCircumference()/1000 *1.15, maxRatio2 * this.getCircumference2()/1000 *1.15)  ;
+			var minDev = Math.min( minRatio * circumference/1000 *0.8, minRatio2 * circumference2/1000 *0.8 ) ;
+			var maxDev = Math.max( maxRatio * circumference/1000 *1.15, maxRatio2 * circumference2/1000 *1.15)  ;
 
 			ctx.beginPath();
 
@@ -420,17 +442,20 @@ sap.ui.define([
 			ctx.fillStyle = "rgb(150,150,150)";
 			ctx.textAlign = "left";
 			if (this.getHubType() !== "DERS"){
-			    ctx.fillText( this.getHubName(), 10, 140);
+				var hubName = (this.getHubType() == "RLSH" && aChainrings[0] <= 20)? this.getHubName() + " & Bosch Gen2 Motor" : this.getHubName() ;
+				ctx.fillText( hubName, 10, 140);
 				if (!aAvlCogs.includes((aCogs[0])) && aAvlCogs.length > 0){
 					ctx.fillStyle = "#e34c26";
 					ctx.fillText(oResourceBundle.getText("noStandardCog"), 10, 50);
 					ctx.fillStyle = "rgb(150,150,150)";
 				}
-				if ( aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || 
+				if ( this.getHubType() != "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || 
 					 this.getHubType() == "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < 3.0 && 
 					 (aCogs[aCogs.length-1] == 13 || aCogs[aCogs.length-1] == 14 ) ||
 					 this.getHubType() == "RLSH" && (this.getRiderWeightGt100()===1 || this.getCargo() || this.getTandem() || this.getHpv()) 
-					 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5 ){
+					 && (aChainrings[0] > 20 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5 || (aChainrings[0] <= 20 && aChainrings[0]/aCogs[aCogs.length-1]*2.5 < 2.5)) ||
+					 this.getHubType() == "RLSH"   
+					 && (aChainrings[0] > 20 && aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || (aChainrings[0] <= 20 && aChainrings[0]/aCogs[aCogs.length-1]*2.5 < this.getMinHubRatio()))					 ){
                     ctx.fillStyle = "#e34c26";
 			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
 			        //ctx.textAlign = "center";

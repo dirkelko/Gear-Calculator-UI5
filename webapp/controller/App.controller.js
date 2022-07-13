@@ -164,7 +164,8 @@ sap.ui.define([
 	            	ratios: (sGears !== null) ? aRatios : [1.0],
 	            	tireName: (sTireName)? sTireName : "27,5/2215",
 	            	circumference : (sCircumference !== null)? Number(sCircumference) : 2215,
-	            	cadence : (sCadence !== null)? Number(sCadence) : 90
+	            	cadence : (sCadence !== null)? Number(sCadence) : 90,
+					gearFactor : 1.0
 	            },
 	            gearData2 : {
 	            	chainrings : (sChainrings2 !== null)? sChainrings2.split(",").map(Number) : [30],
@@ -175,7 +176,8 @@ sap.ui.define([
 	            	ratios: (sGears2 !== null) ? aRatios2 : [1.0],
 	            	tireName: (sTireName2)? sTireName2 : "27,5/2215",
 	            	circumference : (sCircumference2 !== null)? Number(sCircumference2) : 2215,
-	            	cadence : (sCadence !== null)? Number(sCadence) : 90
+	            	cadence : (sCadence !== null)? Number(sCadence) : 90,
+					gearFactor : 1.0
 	            },
 	            displayData :{
 	            	maxChainAngle : (sChainAngle !== null)? Number(sChainAngle) : 2.6,
@@ -200,6 +202,8 @@ sap.ui.define([
 	            	maxTeethCogs : 52,
 	            	maxNumberChainrings : 3,
 	            	maxNumberCogs : 13,
+	            	origMinTeethChainrings : 20,
+	            	origMaxTeethChainrings : 64,
 	            }
 	         };
 	         oModel = new JSONModel(oGearingData);
@@ -222,6 +226,18 @@ sap.ui.define([
 	        	}
 	        	return url;
 	         };
+
+			 oModel.getMaxDev = function(){
+				var dev1 = this.oData.gearData.chainrings.sort((a,b)=>a-b)[this.oData.gearData.chainrings.length-1]/this.oData.gearData.cogs.sort((a,b)=>a-b)[0] * oModel.oData.gearData.circumference;
+				var dev2 = this.oData.gearData2.chainrings.sort((a,b)=>a-b)[this.oData.gearData2.chainrings.length-1]/this.oData.gearData2.cogs.sort((a,b)=>a-b)[0] * oModel.oData.gearData2.circumference;
+				return (this.oData.displayData.compare)? Math.max(dev1, dev2) : dev1 ;
+			}
+
+			 oModel.getMinDev = function(){
+				var dev1 = this.oData.gearData.chainrings.sort((a,b)=>a-b)[0]/this.oData.gearData.cogs.sort((a,b)=>a-b)[this.oData.gearData.cogs.length-1] * oModel.oData.gearData.circumference;
+				var dev2 = this.oData.gearData2.chainrings.sort((a,b)=>a-b)[0]/this.oData.gearData2.cogs.sort((a,b)=>a-b)[this.oData.gearData2.cogs.length-1] * oModel.oData.gearData2.circumference;
+				return (this.oData.displayData.compare)? Math.min(dev1, dev2) : dev1;
+			 }
 
 	         this.getView().setModel(oModel);
 	         
@@ -248,12 +264,6 @@ sap.ui.define([
 
 			 this.setControlsState(oModel.oData.gearData.hubId);
 
-             
-			//this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
-			//this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
-
-    	    //this.getView().byId("showURL").setHref(oModel.getURL());
-
     	},
     	
 		onGearSelected: function(oEvent) {
@@ -272,11 +282,17 @@ sap.ui.define([
 
 		setControlsState: function( hubType ){
 			if (hubType=="RLSH") {
+				this.getView().byId("chainringControls").setMinteeth(14);
+				this.getView().byId("chainringControls").setMaxteeth(58);
+			}else{
+				this.getView().byId("chainringControls").setMinteeth(oModel.oData.displayData.origMinTeethChainrings);
+				this.getView().byId("chainringControls").setMaxteeth(oModel.oData.displayData.origMaxTeethChainrings);
+			}
+			if (hubType=="RLSH") {
 				this.getView().byId("vBSelectCogSet").setVisible(false);
 				this.getView().byId("vBSelectChainringSet").setVisible(false);
 				this.getView().byId("vBSelectBikeType").setVisible(true);
 				this.getView().byId("vBSelectRiderWeight").setVisible(true);
-
 			}else{
 				this.getView().byId("vBSelectCogSet").setVisible(true);
 				this.getView().byId("vBSelectChainringSet").setVisible(true);
@@ -322,7 +338,7 @@ sap.ui.define([
 		onChangeCircumference: function(oEvent) {
 			var circumference = oEvent.getParameter("value");
 			var cCode = circumference.charCodeAt( circumference.length-1 );
-			if (cCode > 57 || cCode < 48){
+			if ( cCode > 57 || cCode < 48 ){
 				circumference = circumference.slice(0,circumference.length-1);
 				this.getView().byId("inpCircumference").setValue(circumference);
 			}
@@ -331,11 +347,18 @@ sap.ui.define([
 				oModel.getObject("", this.context).tireSize = parseInt(circumference);
 				oModel.getObject("", this.context).tireName = circumference;
 	        	this.getView().byId("showURL").setHref(oModel.getURL());
-				oSelectedGraphics.setCircumference(parseInt(circumference));
+				oSelectedGraphics.setCircumference(circumference);
 				this.getView().byId("selectTires").setSelectedKey(null);
 			}
 		},
-		
+
+		onCircumferenceChange: function(oEvent) {
+			var circumference = oEvent.getParameter("value");
+			oSelectedGraphics.setCircumference(circumference);
+			oModel.getObject("", this.context).tireName = circumference;
+			this.getView().byId("showURL").setHref(oModel.getURL());
+		},
+
 		onMaxChainAngleSelected: function(oEvent) {
 			oModel.getObject("/displayData").maxChainAngle = oEvent.getParameter("value");
 	        this.getView().byId("showURL").setHref(oModel.getURL());
@@ -398,6 +421,7 @@ sap.ui.define([
 		onPress: function(oEvent) {
 			if (oModel.oData.displayData.compare){
 				oModel.oData.gearData2.hubId = oModel.oData.gearData.hubId;
+				oModel.oData.gearData2.name = oModel.oData.gearData.name;
 				oModel.oData.gearData2.ratios = oModel.oData.gearData.ratios;
 				oModel.oData.gearData2.minRatio = oModel.oData.gearData.minRatio;
 				oModel.oData.gearData2.chainrings = oModel.oData.gearData.chainrings;
@@ -422,6 +446,10 @@ sap.ui.define([
 		
 		onCloseBanner: function(oEvent){
 			this.getView().byId("banner").setVisible(false);
+		},
+
+		calcMinMaxValues: function(){
+
 		}
 		
 	});

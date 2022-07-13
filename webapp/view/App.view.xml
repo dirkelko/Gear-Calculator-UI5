@@ -45,6 +45,7 @@
 					chainrings2="{/gearData2/chainrings}"
 					cogs2="{/gearData2/cogs}"
 					hubType="{/gearData/hubId}"
+					hubType2="{/gearData2/hubId}"
 					hubName="{/gearData/name}"
 					hubRatios="{/gearData/ratios}"
 					hubRatios2="{/gearData2/ratios}"
@@ -74,6 +75,7 @@
 					chainrings2="{/gearData/chainrings}"
 					cogs2="{/gearData/cogs}"
 					hubType="{/gearData2/hubId}"
+					hubType2="{/gearData/hubId}"
 					hubName="{/gearData2/name}"
 					hubRatios="{/gearData2/ratios}"
 					hubRatios2="{/gearData/ratios}"
@@ -250,6 +252,7 @@
 								width="100%"
 								maxLength="4"
 								value="{circumference}"
+								change= "onCircumferenceChange" 
 								liveChange="onChangeCircumference">
 							</Input>
 							<Label text="" labelFor="btnCompare" class="sapUiTinyMarginTop"/>
