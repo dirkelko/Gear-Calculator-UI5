@@ -132,11 +132,13 @@ sap.ui.define([
 		      	if (aHubData[i].id == sGears){
 		      		var aRatios = aHubData[i].ratios;
 		      		var sHubName = aHubData[i].name; 
+					var minRatios = aHubData[i].minRatios;
 		      	}
 		      	if (aHubData[i].id == sGears2){
 					var aRatios2 = aHubData[i].ratios;
 		      		var sHubName2 = aHubData[i].name; 
-		      	}
+					var minRatios2 = aHubData[i].minRatios;
+				}
 			}
 			var aTireData = this.getView().getModel("gears").getProperty("/TireSizes");
 			for ( i in aTireData ){
@@ -160,7 +162,7 @@ sap.ui.define([
 	            	cogs : (sCogs !== null)? sCogs.split(",").map(Number) : [11,12,14,16,18,21,24,28,32,36],
 	            	hubId : (sGears !== null) ? sGears : "DERS",
 	            	name : (sGears !== null) ? sHubName : "",
-	            	minRatio : 0.0,
+	            	minRatios : (sGears !== null)? minRatios : {default: 0.0},
 	            	ratios: (sGears !== null) ? aRatios : [1.0],
 	            	tireName: (sTireName)? sTireName : "27,5/2215",
 	            	circumference : (sCircumference !== null)? Number(sCircumference) : 2215,
@@ -172,7 +174,7 @@ sap.ui.define([
 	            	cogs : (sCogs2 !== null)? sCogs2.split(",").map(Number) : [10,12,14,16,18,21,24,28,32,36,42],
 	            	hubId : (sGears2 !== null) ? sGears2 : "DERS",
 	            	name : (sGears2 !== null) ? sHubName2 : "",
-	            	minRatio : 0.0,
+	            	minRatios : (sGears2 !== null)? minRatios2 : {default: 0.0},
 	            	ratios: (sGears2 !== null) ? aRatios2 : [1.0],
 	            	tireName: (sTireName2)? sTireName2 : "27,5/2215",
 	            	circumference : (sCircumference2 !== null)? Number(sCircumference2) : 2215,
@@ -272,7 +274,7 @@ sap.ui.define([
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).ratios = obj.ratios;
 			oModel.getObject("", this.context).name = obj.name;
-			oModel.getObject("", this.context).minRatio = obj.minRatio;
+			oModel.getObject("", this.context).minRatios = obj.minRatios;
 			oModel.getObject("", this.context).chainrings = [obj.defCr];
 			oModel.getObject("", this.context).cogs = [obj.defCog];
 			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
@@ -423,7 +425,7 @@ sap.ui.define([
 				oModel.oData.gearData2.hubId = oModel.oData.gearData.hubId;
 				oModel.oData.gearData2.name = oModel.oData.gearData.name;
 				oModel.oData.gearData2.ratios = oModel.oData.gearData.ratios;
-				oModel.oData.gearData2.minRatio = oModel.oData.gearData.minRatio;
+				oModel.oData.gearData2.minRatios = oModel.oData.gearData.minRatios;
 				oModel.oData.gearData2.chainrings = oModel.oData.gearData.chainrings;
 				oModel.oData.gearData2.cogs = oModel.oData.gearData.cogs;
 				oModel.oData.gearData2.circumference = oModel.oData.gearData.circumference;

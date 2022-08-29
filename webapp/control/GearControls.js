@@ -16,6 +16,7 @@ sap.ui.define([
             	"height" : {type: "sap.ui.core.CSSSize", defaultValue: "100px"},
             	"sprocketType" : {type: "string", defaultValue : ""},
             	"sprockets" : {type: "float[]",defaultValue : [] },
+				"availableSprockets" : {type: "int[]", defaultValue : []},
 				"widthPixels" : {type : "int", defaultValue : 0},
 			},
 			aggregations : {
@@ -109,9 +110,12 @@ sap.ui.define([
 			var aTicks = document.getElementById(this.getId()).getElementsByClassName("scaleTick");
 			var offSet = document.getElementById(this.getId()).offsetLeft;
 			
-			// position ticks
+			// position ticks and highlight available cogs 
 			for (var i=0; i < aTicks.length; i++){
 				aTicks[i].style.left = x0 + Math.round(i*oControl.getWidthPixels()/(nTickMarks-1)) - 1 + "px";
+				if (this.getAvailableSprockets().length > 0 && !this.getAvailableSprockets().includes( i + this.getMinteeth())){
+					aTicks[i].style["background-color"] = "#EEEEEE";
+				}
 			}
 			// position sprockets
 			var aSprockets = this.getSprockets();

@@ -23,7 +23,7 @@ sap.ui.define([
 				hubRatios: {type : "float[]", defaultValue : [1.0] },
 				hubRatios2: {type : "float[]", defaultValue : [1.0] },
 				dsplValues: {type : "string", defaultValue : "teeth"},
-				minHubRatio: {type : "float" },
+				minHubRatios: {type : "object" },
 				maxChainAngle: {type : "float", defaultValue : 0},
 				unitsIndex: {type : "int", defaultValue : 0},
 				riderWeightGt100: {type : "int", defaultValue : 0},
@@ -442,25 +442,30 @@ sap.ui.define([
 			ctx.fillStyle = "rgb(150,150,150)";
 			ctx.textAlign = "left";
 			if (this.getHubType() !== "DERS"){
-				var hubName = (this.getHubType() == "RLSH" && aChainrings[0] <= 20)? this.getHubName() + " & Bosch Gen2 Motor" : this.getHubName() ;
+				var teethChainring = aChainrings[0];
+				var teethCog = aCogs[aCogs.length-1];
+				var ratio = (teethChainring > 20)? teethChainring/teethCog : teethChainring/teethCog * 2.5;
+
+				var hubName = (this.getHubType() == "RLSH" && teethChainring <= 20)? this.getHubName() + " & Bosch Gen2 Motor" : this.getHubName() ;
 				ctx.fillText( hubName, 10, 140);
-				if (!aAvlCogs.includes((aCogs[0])) && aAvlCogs.length > 0){
+				if (!aAvlCogs.includes(teethCog) && aAvlCogs.length > 0){
 					ctx.fillStyle = "#e34c26";
 					ctx.fillText(oResourceBundle.getText("noStandardCog"), 10, 50);
 					ctx.fillStyle = "rgb(150,150,150)";
 				}
-				if ( this.getHubType() != "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || 
-					 this.getHubType() == "RLSH" && aChainrings[0]/aCogs[aCogs.length-1] < 3.0 && 
-					 (aCogs[aCogs.length-1] == 13 || aCogs[aCogs.length-1] == 14 ) ||
-					 this.getHubType() == "RLSH" && (this.getRiderWeightGt100()===1 || this.getCargo() || this.getTandem() || this.getHpv()) 
-					 && (aChainrings[0] > 20 && aChainrings[0]/aCogs[aCogs.length-1] < 2.5 || (aChainrings[0] <= 20 && aChainrings[0]/aCogs[aCogs.length-1]*2.5 < 2.5)) ||
-					 this.getHubType() == "RLSH"   
-					 && (aChainrings[0] > 20 && aChainrings[0]/aCogs[aCogs.length-1] < this.getMinHubRatio() || (aChainrings[0] <= 20 && aChainrings[0]/aCogs[aCogs.length-1]*2.5 < this.getMinHubRatio()))					 ){
-                    ctx.fillStyle = "#e34c26";
-			        ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
-			        //ctx.textAlign = "center";
-					ctx.fillStyle = "rgb(150,150,150)";
-					ctx.textAlign = "left";
+				
+				if ( this.getHubType() != "RLSH" && 
+					ratio < this.getMinHubRatios().default || 
+					this.getHubType() == "RLSH" && (
+					ratio < this.getMinHubRatios().default || 
+					teethCog <= this.getMinHubRatios().smallCogTeeth && ratio < this.getMinHubRatios().smallCogRatio  ||
+					(this.getRiderWeightGt100()===1 || this.getCargo() || this.getTandem() || this.getHpv()) && ratio < this.getMinHubRatios().weight100 || 
+					this.getTotalWeightGt250()===1  && ratio < this.getMinHubRatios().weight250 ) ) {
+						ctx.fillStyle = "#e34c26";
+						ctx.fillText(oResourceBundle.getText("highTorque"), 10, 80);
+						//ctx.textAlign = "center";
+						ctx.fillStyle = "rgb(150,150,150)";
+						ctx.textAlign = "left";
 			    }
 			} else {
 			    ctx.fillText( oResourceBundle.getText("capacity") + ": " + (aChainrings[aChainrings.length-1] - aChainrings[0] + aCogs[aCogs.length-1] - aCogs[0]), 10, 140);

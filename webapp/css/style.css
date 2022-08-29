@@ -88,6 +88,18 @@
 
 }
 
+.notAllowedScaleTick {
+	position: absolute;
+	height: 15px;
+	width: 3px;
+    border: none;
+    left: 0px;
+    margin: 0px;
+    padding: 0px;
+	background-color: #FFAAAA;
+
+}
+
 .teethNumber {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */

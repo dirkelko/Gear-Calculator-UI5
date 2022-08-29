@@ -49,7 +49,7 @@
 					hubName="{/gearData/name}"
 					hubRatios="{/gearData/ratios}"
 					hubRatios2="{/gearData2/ratios}"
-					minHubRatio="{/gearData/minRatio}"
+					minHubRatios="{/gearData/minRatios}"
 					dsplValues="{/displayData/displayValueId}"
 					unitsIndex="{/displayData/unitsIndex}"
 					riderWeightGt100="{/displayData/riderWeightGt100}"
@@ -79,7 +79,7 @@
 					hubName="{/gearData2/name}"
 					hubRatios="{/gearData2/ratios}"
 					hubRatios2="{/gearData/ratios}"
-					minHubRatio="{/gearData2/minRatio}"
+					minHubRatios="{/gearData2/minRatios}"
 					dsplValues="{/displayData/displayValueId}"
 					unitsIndex="{/displayData/unitsIndex}"
 					riderWeightGt100="{/displayData/riderWeightGt100}"
@@ -109,7 +109,9 @@
 					maxteeth="{/displayData/maxTeethCogs}"
 					width="100%"
 					height="50px"
-					change="onCogChange"/>
+					change="onCogChange"
+					availableSprockets="{avlCogs}"
+				/>
 					
 				<HBox class="sapUiSmallMarginTop">
 					<VBox width="20%" class="sapUiSmallMarginEnd">
