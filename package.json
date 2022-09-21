@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/dirkelko/Gear-Calculator-UI5#readme",
   "dependencies": {
-    "serve": "^11.3.0",
+    "serve": "^14.0.1",
     "to": "^0.2.9",
     "update": "^0.7.4"
   }
