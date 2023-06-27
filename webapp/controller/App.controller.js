@@ -275,9 +275,11 @@ sap.ui.define([
 			oModel.getObject("", this.context).ratios = obj.ratios;
 			oModel.getObject("", this.context).name = obj.name;
 			oModel.getObject("", this.context).minRatios = obj.minRatios;
-			oModel.getObject("", this.context).chainrings = [obj.defCr];
-			oModel.getObject("", this.context).cogs = [obj.defCog];
+			oModel.getObject("", this.context).chainrings = obj.defCr;
+			oModel.getObject("", this.context).cogs = obj.defCog;
 			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
+			this.getView().byId("selectChainringSet").setChainrings( obj.defCr, this);
+			this.getView().byId("selectCogSet").setCogs(obj.defCog, this);
 	        this.getView().byId("showURL").setHref(oModel.getURL());
 			this.setControlsState(obj.id);
 		},
@@ -306,8 +308,12 @@ sap.ui.define([
 				this.getView().byId("selectCogSet").setEnabled(true);
 				this.getView().byId("selectMaxChainAngle").setEnabled(true);
 			} else {
+				if (hubType=="CLAS"){
+					this.getView().byId("selectCogSet").setEnabled(true);
+				}else{
+					this.getView().byId("selectCogSet").setEnabled(false);
+				}
 				this.getView().byId("selectChainringSet").setEnabled(false);
-				this.getView().byId("selectCogSet").setEnabled(false);
 				this.getView().byId("selectMaxChainAngle").setEnabled(false);
 			}
 
