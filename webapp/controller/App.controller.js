@@ -13,13 +13,14 @@ sap.ui.define([
 
 	return Controller.extend("dirk.gears.controller.App", {
 		onInit : function () {
-      		// get "gears" Model which is defined in manifest and wait until the model data is loaded
-			var oGearsModel = this.getOwnerComponent().getModel("gears");
-			oGearsModel.setSizeLimit(200);
-			oGearsModel.attachRequestCompleted( function(evt) {
-				this.onAllDataIsReady();
-    		}.bind(this));
-    		
+				this.getView().byId("mainContentArea").setVisible(!this.iniFrame());
+				this.getView().byId("iFrameWarning").setVisible(this.iniFrame());
+				// get "gears" Model which is defined in manifest and wait until the model data is loaded
+				var oGearsModel = this.getOwnerComponent().getModel("gears");
+				oGearsModel.setSizeLimit(200);
+				oGearsModel.attachRequestCompleted( function(evt) {
+					this.onAllDataIsReady();
+				}.bind(this));
     	},
       
 		onDisplayHelp: function(oEvent){
@@ -458,7 +459,18 @@ sap.ui.define([
 
 		calcMinMaxValues: function(){
 
+		},
+
+		iniFrame: function() {
+     
+			if(window.self !== window.top) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
+		 
 		
 	});
 });

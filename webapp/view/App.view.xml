@@ -18,7 +18,7 @@
 				<Button icon="sap-icon://action-settings" tooltip="Config" visible="true" press="onSettingsDialog"/>
 			</headerContent>
 			<content>
-			<VBox width="auto" class="sapUiResponsiveMargin">
+			<VBox id="mainContentArea" width="auto" class="sapUiResponsiveMargin">
 				<wt:Banner
 					id="banner"
 					text="{i18n>bannerText}"
@@ -274,6 +274,11 @@
 				<Link id="showURL" href="http://www.ritzelrechner.de" text="{i18n>linkDescription}" target="_blank" class="sapUiSmallMarginTop"/>
 				</VBox>
 					
+			</VBox>
+			<VBox id="iFrameWarning">
+				<Text text="{i18n>iFrameWarning}" textAlign="Center" width="100%" class="sapUiSmallMarginTop"/>
+				<Link  href="http://www.ritzelrechner.de" textAlign="Center" text="http://www.ritzelrechner.de" width="100%" target="_blank" class="sapUiSmallMarginTop"/>
+				<Link  href="http://www.gear-calculator.com" textAlign="Center" text="http://www.gear-calculator.com" width="100%" target="_blank" class="sapUiSmallMarginTop"/>
 			</VBox>
 			</content>
 			<footer>
