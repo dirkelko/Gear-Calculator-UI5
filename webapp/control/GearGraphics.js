@@ -415,9 +415,14 @@ sap.ui.define([
 									ctx.lineTo(xgh + tSize, y - tSize);
 									ctx.lineTo(xgh, y + tSize);
 									ctx.lineTo(xgh - tSize, y - tSize);
-									ctx.fillStyle = "#000000";
+									ctx.fillStyle = (this.getHubType() == "CLAS" && k == 0)? "#F8B912" : "#000000";
 									ctx.fill();
 									ctx.closePath();
+									if (this.getHubType() == "CLAS"){
+										ctx.fillStyle = "#000000";
+										ctx.fillText(aCogs[j], xgh, y - 1);
+										ctx.fillStyle = "#000000";
+									}
 									displayValues(ctx, this.getDsplValues(), j, aChainrings[i]/aCogs[j]*hubRatios[k],circumference, cadence, unitFactor, xgh, y);
 								}
 								ctx.fillStyle = "rgb(200,200,200)";
@@ -448,6 +453,16 @@ sap.ui.define([
 
 				var hubName = (this.getHubType() == "RLSH" && teethChainring <= 20)? this.getHubName() + " & Bosch Gen2 Motor" : this.getHubName() ;
 				ctx.fillText( hubName, 10, 140);
+				if (this.getHubType() == "CLAS"){
+					ctx.fillStyle = "#F8B912";
+					ctx.fillRect(138, 129, 32, 14);
+					ctx.fillStyle = "#000000";
+					ctx.fillText("LOW", 140, 140);
+					ctx.fillRect(174, 129, 32, 14);
+					ctx.fillStyle = "rgb(200,200,200)";
+					ctx.fillText("HIGH", 176, 140);
+					ctx.fillStyle = "rgb(150,150,150)";
+				}
 				if (!aAvlCogs.includes(teethCog) && aAvlCogs.length > 0){
 					ctx.fillStyle = "#e34c26";
 					ctx.fillText(oResourceBundle.getText("noStandardCog"), 10, 50);

@@ -117,6 +117,7 @@ sap.ui.define([
 					aTicks[i].style["background-color"] = "#EEEEEE";
 				}
 			}
+			
 			// position sprockets
 			var aSprockets = this.getSprockets();
 			var iMax = 0;
