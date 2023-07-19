@@ -275,11 +275,6 @@
 				</VBox>
 					
 			</VBox>
-			<VBox id="iFrameWarning">
-				<Text text="{i18n>iFrameWarning}" textAlign="Center" width="100%" class="sapUiSmallMarginTop"/>
-				<Link  href="http://www.ritzelrechner.de" textAlign="Center" text="http://www.ritzelrechner.de" width="100%" target="_blank" class="sapUiSmallMarginTop"/>
-				<Link  href="http://www.gear-calculator.com" textAlign="Center" text="http://www.gear-calculator.com" width="100%" target="_blank" class="sapUiSmallMarginTop"/>
-			</VBox>
 			</content>
 			<footer>
 				<Toolbar>

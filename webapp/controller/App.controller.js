@@ -13,8 +13,6 @@ sap.ui.define([
 
 	return Controller.extend("dirk.gears.controller.App", {
 		onInit : function () {
-				this.getView().byId("mainContentArea").setVisible(!this.iniFrame());
-				this.getView().byId("iFrameWarning").setVisible(this.iniFrame());
 				// get "gears" Model which is defined in manifest and wait until the model data is loaded
 				var oGearsModel = this.getOwnerComponent().getModel("gears");
 				oGearsModel.setSizeLimit(200);
