@@ -216,7 +216,7 @@
 	{ "id" : "NU38", "name" : "Nuvinci N380",    			"minRatios" : { "default" : 1.80}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,22], "ratios": [0.500,1.900] },
 	{ "id" : "NU36", "name" : "Nuvinci N360",    			"minRatios" : { "default" : 1.80}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,22], "ratios": [0.500,1.800] },
 	{ "id" : "NU33", "name" : "Nuvinci N330",    			"minRatios" : { "default" : 1.80}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,22], "ratios": [0.500,1.650] },
-	{ "id" : "3X3H", "name" : "3x3 NINE",    				"minRatios" : { "default" : 1.00}, "defCr" : [34], "defCog" : [28], "avlCogs" : [24,26,28,30,32,34], "ratios": [0.526,0.649,0.806,1.000,1.235,1.538,1.880,2.326,2.889] },
+	{ "id" : "3X3H", "name" : "3x3 NINE",    				"minRatios" : { "default" : 1.00}, "defCr" : [34], "defCog" : [28], "avlCogs" : [24,26,28,30,32,34], "ratios": [0.5268,0.6539,0.8105,1.000,1.2413,1.5385,1.8982,2.3562,2.9204] },
 	{ "id" : "SRG8", "name" : "SRAM G8",       				"minRatios" : { "default" : 1.90}, "defCr" : [38], "defCog" : [20], "avlCogs" : [18,19,20,21,22], "ratios": [0.609,0.710,0.803,0.903,1.054,1.204,1.355,1.581] },
 	{ "id" : "SIM9", "name" : "SRAM iMotion 9",    			"minRatios" : { "default" : 1.73}, "defCr" : [38], "defCog" : [20], "avlCogs" : [18,19,20,21,22], "ratios": [0.542,0.621,0.727,0.853,1.000,1.172,1.375,1.611,1.844] },
 	{ "id" : "SSP5", "name" : "SRAM Spectro P5",			"minRatios" : { "default" : 1.80}, "defCr" : [38], "defCog" : [20], "avlCogs" : [16,17,18,19,20,21,22,24], "ratios": [0.633,0.781,1.000,1.281,1.579] },
