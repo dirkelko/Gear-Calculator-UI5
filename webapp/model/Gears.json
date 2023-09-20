@@ -227,7 +227,7 @@
 	{ "id" : "SNI8", "name" : "Shimano Nexus Inter 8",		"minRatios" : { "default" : 2.00}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,21,22,23], "ratios": [0.527,0.644,0.748,0.851,1.000,1.223,1.419,1.615] },
 	{ "id" : "SNI7", "name" : "Shimano Nexus Inter 7",		"minRatios" : { "default" : 2.00}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,21,22,23], "ratios": [0.632,0.741,0.843,0.989,1.145,1.335,1.545] },
 	{ "id" : "SNI5", "name" : "Shimano Inter 5",			"minRatios" : { "default" : 2.00}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,21,22,23], "ratios": [0.750,1.001,1.159,1.335,1.545] },
-	{ "id" : "SN5E", "name" : "Shimano Inter 5E / Steps",	"minRatios" : { "default" : 1.27}, "defCr" : [38], "defCog" : [27], "avlCogs" : [16,17,18,19,20,21,22,23], "ratios": [1.000,1.277,1.622,2.070,2.630] },
+	{ "id" : "SN5E", "name" : "Shimano Inter 5E / Steps",	"minRatios" : { "default" : 1.27}, "defCr" : [38], "defCog" : [27], "avlCogs" : [24,27,30], "ratios": [1.000,1.277,1.622,2.070,2.630] },
 	{ "id" : "SNI3", "name" : "Shimano Inter 3",			"minRatios" : { "default" : 2.00}, "defCr" : [38], "defCog" : [18], "avlCogs" : [16,17,18,19,20,21,22,23], "ratios": [0.733,1.000,1.364] },
 	{ "id" : "SSS7", "name" : "Sachs Super 7",   			"minRatios" : { "default" : 1.83}, "defCr" : [38], "defCog" : [20], "avlCogs" : [16,17,18,19,20,21,22,24], "ratios": [0.594,0.677,0.814,1.000,1.227,1.476,1.685] },
 	{ "id" : "SPS5", "name" : "Sachs Pentasport",  			"minRatios" : { "default" : 1.80}, "defCr" : [38], "defCog" : [20], "avlCogs" : [16,17,18,19,20,21,22,24], "ratios": [0.667,0.778,1.000,1.286,1.500] },
