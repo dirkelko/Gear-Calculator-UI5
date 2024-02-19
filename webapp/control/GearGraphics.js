@@ -147,22 +147,22 @@ sap.ui.define([
 			}
 			
 			function displayValues(ctx, dsplValue,iCog, ratio,circumference, cadence, unitFactor, x, y) {
-		                            switch(dsplValue) {
-		                                case "ratio":
-							                ctx.fillText((ratio).toPrecision(3), x, y - 16);
-		                                    break;
-		                                case "development":
-							                ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
-		                                    break;
-		                            	case "gearInches":
-		    					        	ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
-							                //ctx.fillText(iCog, x, y - 16);
-		                                	break;
-		                                case "speed":
-							                ctx.fillText((ratio*circumference/1000* cadence * unitFactor).toPrecision(3), x, y - 16);
-		                                	break;
-		                            	default:
-		                            }
+				switch(dsplValue) {
+					case "ratio":
+						ctx.fillText((ratio).toPrecision(3), x, y - 16);
+						break;
+					case "development":
+						ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
+						break;
+					case "gearInches":
+						ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
+						//ctx.fillText(iCog, x, y - 16);
+						break;
+					case "speed":
+						ctx.fillText((ratio*circumference/1000* cadence * unitFactor).toPrecision(3), x, y - 16);
+						break;
+					default:
+				}
 			}
 			
 			//distance/mm between sprockets 

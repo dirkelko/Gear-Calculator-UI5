@@ -173,7 +173,7 @@
 								path: 'gears>/ChainringSets'
 							}" 
 							change=".onChainringSetSelected">
-							<core:Item key="{gears>name}" text="{gears>name}" />
+							<core:Item key="{gears>name}" text="{gears>description}" />
 						</Select>
 						<Label text="{i18n>maxChainAngle}" labelFor="selectMaxChainAngle" class="sapUiTinyMarginTop"/>
 						<Slider 

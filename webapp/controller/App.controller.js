@@ -158,7 +158,7 @@ sap.ui.define([
 	         var oGearingData = {
 	            gearData : {
 	            	chainrings : (sChainrings !== null)? sChainrings.split(",").map(Number) : [22,36],
-	            	cogs : (sCogs !== null)? sCogs.split(",").map(Number) : [11,12,14,16,18,21,24,28,32,36],
+	            	cogs : (sCogs !== null)? sCogs.split(",").map(Number) : [11,13,15,17,19,21,24,28,32,36],
 	            	hubId : (sGears !== null) ? sGears : "DERS",
 	            	name : (sGears !== null) ? sHubName : "",
 	            	minRatios : (sGears !== null)? minRatios : {default: 0.0},
