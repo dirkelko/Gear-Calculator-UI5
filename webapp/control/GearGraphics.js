@@ -32,7 +32,8 @@ sap.ui.define([
 				tandem: {type : "boolean", defaultValue : false},
 				hpv: {type : "boolean", defaultValue : false},
 				selected : {type : "boolean", group : "Data", defaultValue : false},
-				minMaxValues : {type : "float[]"}
+				minMaxValues : {type : "float[]"},
+				logScale: {type: "boolean"}
 			},
 			aggregations : {
 			},
@@ -134,13 +135,16 @@ sap.ui.define([
 		paintScales: function(ctx){
 			// xLog - returns x position of value v between vMin and vMax
 			// in logarithmic scale with width xSize
-			function xLog(vMin, vMax, xSize, v) {
+
+			var logScale = this.getLogScale();
+
+			const xLog = function(vMin, vMax, xSize, v){
 				if (v >= vMin && v <= vMax) {
 					if (vMin > 0) {
-						return Math.log(v / vMin) / Math.log(vMax / vMin) * xSize;
+						return (logScale)? Math.log(v / vMin) / Math.log(vMax / vMin) * xSize : (v / vMin) / (vMax / vMin) * xSize;
 					} else {
-						return Math.log(v) / Math.log(vMax) * xSize;
-					}
+						return (logScale)? Math.log(v) / Math.log(vMax) * xSize : v / vMax * xSize;
+					}	
 				} else {
 					return 0;
 				}

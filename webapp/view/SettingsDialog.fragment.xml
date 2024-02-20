@@ -69,6 +69,12 @@
 						type : 'sap.ui.model.type.Integer'}"
 	   				type="Number"
 	   				width="80px"/>
+			<Label text="{i18n>logScale}" labelFor="switchLogScale" class="sapUiTinyMarginTop"/>
+			<Switch id="switchLogScale" state="{/displayData/logScale}">
+				<layoutData>
+					<FlexItemData growFactor="1" />
+				</layoutData>
+			</Switch>
 		</l:VerticalLayout>
    	</content>
       <buttons>

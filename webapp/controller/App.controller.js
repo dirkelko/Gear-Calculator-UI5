@@ -205,6 +205,7 @@ sap.ui.define([
 	            	maxNumberCogs : 13,
 	            	origMinTeethChainrings : 20,
 	            	origMaxTeethChainrings : 64,
+					logScale : true
 	            }
 	         };
 	         oModel = new JSONModel(oGearingData);

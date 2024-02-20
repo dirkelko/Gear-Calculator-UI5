@@ -59,7 +59,8 @@
 					hpv="{/displayData/hpv}"
 					maxChainAngle="{/displayData/maxChainAngle}"
 					visible="true"
-					select="onGraphicsSelected"/>
+					select="onGraphicsSelected"
+					logScale="{/displayData/logScale}"/>
 				<wt:GearGraphics
 					id="gearGraphics2"
 					width="100%"
@@ -89,7 +90,8 @@
 					hpv="{/displayData/hpv}"
 					maxChainAngle="{/displayData/maxChainAngle}"
 					visible="{/displayData/compare}"
-					select="onGraphicsSelected"/>
+					select="onGraphicsSelected"
+					logScale="{/displayData/logScale}"/>
 				<wt:GearControls 
 					id="chainringControls" 
 					sprockets="{chainrings}"
