@@ -10,6 +10,7 @@ sap.ui.define([
 	
 	var oModel;
 	var oSelectedGraphics;
+	var oHistoryPushStateDebounceTimer;
 
 	return Controller.extend("dirk.gears.controller.App", {
 		onInit : function () {
@@ -252,7 +253,7 @@ sap.ui.define([
 			 this.getView().byId("selectChainringSet").setChainrings(oModel.oData.gearData.chainrings, this);
 			 this.getView().byId("selectCogSet").setCogs(oModel.oData.gearData.cogs, this);
  
-			 this.getView().byId("showURL").setHref(oModel.getURL());
+			 this.updateUrl();
 
 			 // register custom controls for automatic repainting after resizing
 	         var fRepaint = function(oEvent){
@@ -280,7 +281,7 @@ sap.ui.define([
 			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
 			this.getView().byId("selectChainringSet").setChainrings( obj.defCr, this);
 			this.getView().byId("selectCogSet").setCogs(obj.defCog, this);
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 			this.setControlsState(obj.id);
 		},
 
@@ -323,24 +324,24 @@ sap.ui.define([
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).circumference = obj.size;
 			oModel.getObject("", this.context).tireName = obj.inch + "/" + obj.ETRTO + " " + obj.description;
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onChainringSetSelected: function(oEvent) {
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).chainrings = obj.set;
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onCogSetSelected: function(oEvent) {
 			var obj = oEvent.getParameter("selectedItem").getBindingContext("gears").getObject();
 			oModel.getObject("", this.context).cogs = obj.set;
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onCadenceSelected: function(oEvent) {
 			oModel.getObject("", this.context).cadence = oEvent.getParameter("value");
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onChangeCircumference: function(oEvent) {
@@ -354,7 +355,7 @@ sap.ui.define([
 				oModel.getObject("", this.context).circumference = parseInt(circumference);
 				oModel.getObject("", this.context).tireSize = parseInt(circumference);
 				oModel.getObject("", this.context).tireName = circumference;
-	        	this.getView().byId("showURL").setHref(oModel.getURL());
+	        	this.updateUrl();
 				oSelectedGraphics.setCircumference(circumference);
 				this.getView().byId("selectTires").setSelectedKey(null);
 			}
@@ -364,30 +365,30 @@ sap.ui.define([
 			var circumference = oEvent.getParameter("value");
 			oSelectedGraphics.setCircumference(circumference);
 			oModel.getObject("", this.context).tireName = circumference;
-			this.getView().byId("showURL").setHref(oModel.getURL());
+			this.updateUrl();
 		},
 
 		onMaxChainAngleSelected: function(oEvent) {
 			oModel.getObject("/displayData").maxChainAngle = oEvent.getParameter("value");
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onChainringChange: function(oEvent) {
 			this.getView().byId("selectChainringSet").setChainrings( oEvent.getSource().getSprockets(), this);
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onCogChange: function(oEvent) {
 			this.getView().byId("selectCogSet").setCogs(oEvent.getSource().getSprockets(), this);
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		ondisplayValueSelected: function(oEvent) {
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 
 		onSelectUnits: function(oEvent) {
-	        this.getView().byId("showURL").setHref(oModel.getURL());
+	        this.updateUrl();
 		},
 		
 		onGraphicsSelected: function(oEvent) {
@@ -418,7 +419,7 @@ sap.ui.define([
 					this.getView().byId("selectTires").setSelectedKey(oModel.oData.gearData.circumference, this);
 					this.setControlsState(oModel.oData.gearData.hubId);
 				}
-	    	    this.getView().byId("showURL").setHref(oModel.getURL());
+	    	    this.updateUrl();
 			}
 		},
 		 
@@ -449,7 +450,7 @@ sap.ui.define([
 			    this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
 			}
 		    //this.getView().byId("gearCalculatorPage").setBindingContext(this.context);
-	    	this.getView().byId("showURL").setHref(oModel.getURL());
+	    	this.updateUrl();
 		},
 		
 		onCloseBanner: function(oEvent){
@@ -468,8 +469,23 @@ sap.ui.define([
 			else {
 				return false;
 			}
+		},
+
+		updateUrl: function() {
+			let url = oModel.getURL();
+			
+			this.getView().byId("showURL").setHref();
+
+			// Debounce the `history.replaceState` call to occur at most every 20ms.
+			// This prevents `SecurityError`s emitted when this function is called too
+			// frequently.
+			if(oHistoryPushStateDebounceTimer != null) {
+				clearTimeout(oHistoryPushStateDebounceTimer)
+			}
+			oHistoryPushStateDebounceTimer = setTimeout(() => {
+				window.history.replaceState(null, null, url)
+			}, 20);
+
 		}
-		 
-		
 	});
 });
