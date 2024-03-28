@@ -7,7 +7,7 @@ The tire size can be chosen out of a list or the tire circumference can be enter
 
 The gear calculator is built with OpenUI5 (http://openui5.org)
 
-Currently English, German, French, Spanish and Hungarian language is supported. Any help for other languages is appreciated.
+Currently English, German, French, Spanish, Korean and Hungarian language is supported. Any help for other languages is appreciated.
 
 
 
