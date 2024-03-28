@@ -2,8 +2,10 @@
 	"CogSets" : [
 		{ "name" : "custom ",		"description" : "custom",							"set" : []},
 		{ "name" : "13/9-36CA",		"description" : "13/9-36 Campagnolo Ekar",			"set" : [9,10,11,12,13,14,16,18,20,23,27,31,36]},
-		{ "name" : "13/9-42CA",		"description" : "13/9-42 Campagnolo Ekar",			"set" : [9,10,11,12,13,14,16,18,21,25,30,36,42]},
+		{ "name" : "13/9-42CA",		"description" : "13/9-42 Campagnolo Ekar/Ekar GT",	"set" : [9,10,11,12,13,14,16,18,21,25,30,36,42]},
 		{ "name" : "13/10-44CA",	"description" : "13/10-44 Campagnolo Ekar",			"set" : [10,11,12,13,14,15,17,19,22,26,32,38,44]},
+		{ "name" : "13/10-44CAGT",	"description" : "13/10-44 Campagnolo Ekar GT",		"set" : [10,11,12,13,14,16,18,21,24,28,33,38,44]},
+		{ "name" : "13/10-48CAGT",	"description" : "13/10-48 Campagnolo Ekar GT",		"set" : [10,11,12,13,14,16,18,21,25,30,36,42,48]},
 		{ "name" : "12/10-25CA",	"description" : "12/10-25 Campagnolo SR wireless",	"set" : [10,11,12,13,14,15,16,17,19,21,23,25]},
 		{ "name" : "12/10-27CA",	"description" : "12/10-27 Campagnolo SR wireless",	"set" : [10,11,12,13,14,15,16,17,19,21,24,27]},
 		{ "name" : "12/10-29CA",	"description" : "12/10-29 Campagnolo SR wireless",	"set" : [10,11,12,13,14,15,16,18,20,23,26,29]},
