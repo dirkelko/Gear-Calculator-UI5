@@ -279,6 +279,15 @@ sap.ui.define([
 			oModel.getObject("", this.context).chainrings = obj.defCr;
 			oModel.getObject("", this.context).cogs = obj.defCog;
 			oModel.getObject("", this.context).avlCogs = obj.avlCogs;
+
+			if (["BSR3","BWR4","BWR6","BW12"].includes(oModel.getObject("", this.context).hubId)){
+				this.getView().byId("selectTires").setSelectedKey( 1330, this);
+				oModel.getObject("", this.context).circumference = 1330;
+			} else if (["BGL8"].includes(oModel.getObject("", this.context).hubId)){
+				this.getView().byId("selectTires").setSelectedKey( 1620, this);
+				oModel.getObject("", this.context).circumference = 1620;
+			}
+
 			this.getView().byId("selectChainringSet").setChainrings( obj.defCr, this);
 			this.getView().byId("selectCogSet").setCogs(obj.defCog, this);
 	        this.updateUrl();

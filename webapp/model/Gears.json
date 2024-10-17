@@ -262,9 +262,11 @@
 		{ "id" : "SAX8", "name" : "Sturmey Archer RX-4",		"minRatios" : { "default" : 1.00}, "defCr" : [36], "defCog" : [24], "avlCogs" : [13,14,15,16,17,18,19,20,21,22,23,24], "ratios": [1.000,1.280,1.640,2.100] },
 		{ "id" : "SAAW", "name" : "Sturmey Archer S3",			"minRatios" : { "default" : 1.00}, "defCr" : [36], "defCog" : [18], "avlCogs" : [13,14,15,16,17,18,19,20,21,22,24], "ratios": [0.750,1.000,1.333] },
 		{ "id" : "SAS2", "name" : "Sturmey Archer S2",			"minRatios" : { "default" : 1.00}, "defCr" : [36], "defCog" : [18], "avlCogs" : [13,14,15,16,17,18,19,20,21,22,24], "ratios": [1.000,1.380] },
-		{ "id" : "BBWR", "name" : "Brompton BWR",				"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [16], "avlCogs" : [13,14,15,16], "ratios": [0.638,1.000,1.567] },
-		{ "id" : "BBW6", "name" : "Brompton BWR 6",				"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [13,16], "avlCogs" : [13,16], "ratios": [0.638,1.000,1.567] },
-		{ "id" : "BB12", "name" : "Brompton BWR 12",			"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [11,13,15,18], "avlCogs" : [11,13,15,18], "ratios": [0.638,1.000,1.567] }
+		{ "id" : "BSR3", "name" : "Brompton 3 speed BSR",		"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [16], "avlCogs" : [13,14,15,16], "ratios": [0.75,1.000,1.333] },
+		{ "id" : "BWR4", "name" : "Brompton 4 speed",			"minRatios" : { "default" : 1.00}, "defCr" : [54], "defCog" : [11,13,15,18], "avlCogs" : [11,13,15,18], "ratios": [1.000] },
+		{ "id" : "BWR6", "name" : "Brompton 6 speed BWR",		"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [13,16], "avlCogs" : [13,16], "ratios": [0.638,1.000,1.567] },
+		{ "id" : "BW12", "name" : "Brompton 12 speed BWR",		"minRatios" : { "default" : 1.00}, "defCr" : [50], "defCog" : [11,13,15,18], "avlCogs" : [11,13,15,18], "ratios": [0.638,1.000,1.567] },
+		{ "id" : "BGL8", "name" : "Brompton G-Line",			"minRatios" : { "default" : 1.00}, "defCr" : [54], "defCog" : [20], "avlCogs" : [20], "ratios": [0.527,0.644,0.748,0.851,1.000,1.223,1.419,1.615] }
 	],
 	"MinRatios" :[
 		{"id" : "RLSH", "Conditions" : [ {"default" : 1.9 }, {"weight100" : 2.5 }, {"cargo" : 2.5}, {"weight250" : 3.0 } ]}

@@ -34,7 +34,7 @@
 	z-index: 15;
 }
 .ribbon1{
-	background-color: rgb(38,87,32);
+	background-color: rgb(229,20,60);
 	color: rgb(252,248,241);
 	border-top: 2px solid rgb(252,248,241);
     line-height:28px;
@@ -43,8 +43,8 @@
 }
 .ribbon2{
 	background-color: rgb(252,248,241);
-	color: rgb(38,87,32);
-	border-bottom: 2px solid rgb(38,87,32);
+	color: rgb(229,20,60);
+	border-bottom: 2px solid rgb(229,20,60);
     line-height:28px;
     font-size:12px;
 } 
