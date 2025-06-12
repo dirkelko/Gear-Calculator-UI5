@@ -35,7 +35,7 @@
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
 					"bundleName": "dirk.gears.i18n.i18n",
-                    "supportedLocales": ["de", "en", "es", "fr", "hu", "ko"],
+                    "supportedLocales": ["de", "en", "es", "fr", "hu", "ko", "zh"],
                     "fallbackLocale": "en"				
 				}
 			},
