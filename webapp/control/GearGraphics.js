@@ -156,7 +156,8 @@ sap.ui.define([
 						ctx.fillText((ratio).toPrecision(3), x, y - 16);
 						break;
 					case "development":
-						ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
+						//ctx.fillText((ratio*circumference/1000).toPrecision(3), x, y - 16);
+						ctx.fillText((ratio*circumference/1000).toFixed(2), x, y - 16);
 						break;
 					case "gearInches":
 						ctx.fillText((ratio*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);
@@ -374,7 +375,7 @@ sap.ui.define([
 		    					        ctx.fillText((aChainrings[i]/aCogs[j]).toPrecision(3), x, y - 16);
 		                                break;
 		                             case "development":
-		    				 	        ctx.fillText((aChainrings[i]/aCogs[j]*circumference/1000).toPrecision(3), x, y - 16);
+		    				 	        ctx.fillText((aChainrings[i]/aCogs[j]*circumference/1000).toFixed(2), x, y - 16);
 		                                break;
 		                             case "gearInches":
 		    				 	        ctx.fillText((aChainrings[i]/aCogs[j]*circumference/25.4/3.1415927).toPrecision(3), x, y - 16);

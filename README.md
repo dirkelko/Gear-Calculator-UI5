@@ -9,5 +9,9 @@ The gear calculator is built with OpenUI5 (http://openui5.org)
 
 Currently English, German, French, Spanish, Korean and Hungarian language is supported. Any help for other languages is appreciated.
 
+## Testing
+
+- Run data integrity tests (CI-friendly): `npm test`
+- Run UI5 QUnit unit tests in browser: `npm run test:ui5`
 
 

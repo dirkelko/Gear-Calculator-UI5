@@ -4,8 +4,10 @@ sap.ui.define([
 	'sap/m/MessageStrip',
 	'sap/ui/core/library',
 	"sap/ui/model/json/JSONModel",
-	"sap/base/util/UriParameters"
-],	function (Controller, MessageToast, MessageStrip, coreLibrary, JSONModel, UriParameters) {
+	"sap/base/util/UriParameters",
+	"dirk/gears/util/SettingsValidator",
+	"dirk/gears/util/GearMath"
+],	function (Controller, MessageToast, MessageStrip, coreLibrary, JSONModel, UriParameters, SettingsValidator, GearMath) {
 	"use strict";
 	
 	var oModel;
@@ -55,19 +57,7 @@ sap.ui.define([
 		},
 		
 		onCloseSettingsDialog : function () {
-			if (oModel.oData.displayData.minCadence > 10 &&
-				oModel.oData.displayData.maxCadence < 200 &&
-				oModel.oData.displayData.maxCadence > oModel.oData.displayData.minCadence &&
-				oModel.oData.displayData.minTeethCogs > 0 && 
-				oModel.oData.displayData.maxTeethCogs > oModel.oData.displayData.minTeethCogs && 
-				oModel.oData.displayData.maxTeethCogs < 100 &&
-				oModel.oData.displayData.minTeethChainrings > 0 && 
-				oModel.oData.displayData.maxTeethChainrings > oModel.oData.displayData.minTeethChainrings && 
-				oModel.oData.displayData.maxTeethChainrings < 100 &&
-				oModel.oData.displayData.maxNumberChainrings < 6 &&
-				oModel.oData.displayData.maxNumberChainrings > 0 &&
-				oModel.oData.displayData.maxNumberCogs < 21 &&
-				oModel.oData.displayData.maxNumberCogs > 0){
+			if (SettingsValidator.isValidDisplayData(oModel.oData.displayData)){
 					this.getView().byId("settingsDialog").close();
 					this.getView().byId("selectCadence").setMin(Number(oModel.oData.displayData.minCadence));
 					this.getView().byId("selectCadence").setMax(Number(oModel.oData.displayData.maxCadence));
@@ -228,18 +218,14 @@ sap.ui.define([
 	        		+ "&UF2=" + oModel.oData.gearData2.circumference;
 	        	}
 	        	return url;
-	         };
+			 };
 
 			 oModel.getMaxDev = function(){
-				var dev1 = this.oData.gearData.chainrings.sort((a,b)=>a-b)[this.oData.gearData.chainrings.length-1]/this.oData.gearData.cogs.sort((a,b)=>a-b)[0] * oModel.oData.gearData.circumference;
-				var dev2 = this.oData.gearData2.chainrings.sort((a,b)=>a-b)[this.oData.gearData2.chainrings.length-1]/this.oData.gearData2.cogs.sort((a,b)=>a-b)[0] * oModel.oData.gearData2.circumference;
-				return (this.oData.displayData.compare)? Math.max(dev1, dev2) : dev1 ;
+				return GearMath.getMaxDevelopmentForModel(this.oData);
 			}
 
 			 oModel.getMinDev = function(){
-				var dev1 = this.oData.gearData.chainrings.sort((a,b)=>a-b)[0]/this.oData.gearData.cogs.sort((a,b)=>a-b)[this.oData.gearData.cogs.length-1] * oModel.oData.gearData.circumference;
-				var dev2 = this.oData.gearData2.chainrings.sort((a,b)=>a-b)[0]/this.oData.gearData2.cogs.sort((a,b)=>a-b)[this.oData.gearData2.cogs.length-1] * oModel.oData.gearData2.circumference;
-				return (this.oData.displayData.compare)? Math.min(dev1, dev2) : dev1;
+				return GearMath.getMinDevelopmentForModel(this.oData);
 			 }
 
 	         this.getView().setModel(oModel);
